@@ -1,5 +1,5 @@
 //
-//  data.swift
+//  testData.swift
 //  AndamanUI
 //
 //  Created by Yuki Matsuo on 2020/09/28.
@@ -99,7 +99,7 @@ let breakTradeSummary1 = TradeSummary(
     breakTradeAlgorithmParams: breakTradeAlgorithmParams1
 )
 
-let tradeSummaries = [
+let testTradeSummaries = [
     TradeDirection.Long: [
         TradeAlgorithm.Reaction: reactionTradeSummary0,
         TradeAlgorithm.Break: breakTradeSummary0

@@ -10,8 +10,8 @@ import SwiftUI
 struct GridSearchSelectView: View {
     @State var pairSelected = 0
     @State var timezoneSelected = 0
-    @State var algorithmSelected = 0
     @State var directionSelected = 0
+    @State var algorithmSelected = 0
     
     var body: some View {
         NavigationView {
@@ -40,7 +40,12 @@ struct GridSearchSelectView: View {
                     }
                 }
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: GridSearchGrainView(
+                                pair: TradePair.allCases[pairSelected],
+                                timezone: Timezone.allCases[timezoneSelected],
+                                direction: TradeDirection.allCases[directionSelected],
+                                algorithm: TradeAlgorithm.allCases[algorithmSelected])
+                ) {
                     Text("Select")
                 }
             }
