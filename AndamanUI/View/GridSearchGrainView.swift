@@ -24,27 +24,49 @@ struct GridSearchGrainView: View {
     }
     
     var headerView: some View {
-        VStack(alignment: .leading) {
-            KeyValueView(key: "Trade Pair", value: pair.rawValue)
-            KeyValueView(key: "Timezone", value: timezone.rawValue)
-            KeyValueView(key: "Direction", value: direction.rawValue)
-            KeyValueView(key: "Algorithm", value: algorithm.rawValue)
+        let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+        
+        return LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
+            Text("Trade Pair").foregroundColor(.blue)
+            Text(pair.rawValue)
+            Text("Timezone").foregroundColor(.blue)
+            Text(timezone.rawValue)
+            Text("Direction").foregroundColor(.blue)
+            Text(direction.rawValue)
+            Text("Algorithm").foregroundColor(.blue)
+            Text(algorithm.rawValue)
+            Text("Positive").foregroundColor(.blue)
             
-            KeyValueView(key: "Positive", value: NSString(format: "%.1f", self.model.grain!.positiveProportions) as String)
-        }.padding()
+            let positive = NSString(format: "%.1f", self.model.grain!.positiveProportions) as String
+            Text(positive).foregroundColor(.green).bold()
+        }
+        .padding()
+    }
+    
+    var tradeSummariesView: some View {
+        let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+        
+        return ScrollView {
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
+                Text("Realized Profit").foregroundColor(.red)
+                Text("Trade Count").foregroundColor(.red)
+                
+                let grain = self.model.grain!
+                ForEach(0..<grain.tradeSummaries.count) {
+                    Text(NSString(format: "%.1f", grain.tradeSummaries[$0].realizedProfit) as String)
+                    Text(NSString(format: "%d", grain.tradeSummaries[$0].tradeCount) as String)
+                }
+            }
+            .padding()
+        }
     }
     
     var successView: some View {
         VStack(alignment: .leading) {
             headerView
-            
-            List {
-                ForEach(0..<self.model.grain!.tradeSummaries.count) {
-                    GridSearchGrainViewListItem(index: $0, grain: self.model.grain!)
-                }
-            }
+            Divider()
+            tradeSummariesView
         }
-        
     }
     
     var fetchView: some View {
@@ -60,21 +82,6 @@ struct GridSearchGrainView: View {
     var body: some View {
         content.onAppear {
             self.model.fetch(pair: pair, timezone: timezone, direction: direction, algorithm: algorithm)
-        }
-    }
-}
-
-struct GridSearchGrainViewListItem: View {
-    let index: Int
-    let grain: GridSearchGrainResult
-    
-    var body: some View {
-        HStack {
-            Text("Realized Profit").foregroundColor(.red)
-            Text(NSString(format: "%.1f", grain.tradeSummaries[index].realizedProfit) as String)
-            
-            Text("Trade Count").foregroundColor(.red)
-            Text(NSString(format: "%d", grain.tradeSummaries[index].tradeCount) as String)
         }
     }
 }

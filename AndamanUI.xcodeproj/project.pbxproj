@@ -19,7 +19,6 @@
 		9A8A6CEC2521A1FD0079B7FC /* enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8A6CEB2521A1FD0079B7FC /* enums.swift */; };
 		9AF4FD3A2522BFB2009C65EB /* GridSearchGrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */; };
 		9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4FD402523137E009C65EB /* GridSearchGrainViewModel.swift */; };
-		9AF4FD4525232D4B009C65EB /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4FD4425232D4B009C65EB /* KeyValueView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		9A8A6CEB2521A1FD0079B7FC /* enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = enums.swift; sourceTree = "<group>"; };
 		9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchGrainView.swift; sourceTree = "<group>"; };
 		9AF4FD402523137E009C65EB /* GridSearchGrainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchGrainViewModel.swift; sourceTree = "<group>"; };
-		9AF4FD4425232D4B009C65EB /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +92,6 @@
 			children = (
 				9A8A6CE625219FFF0079B7FC /* GridSearchSelectView.swift */,
 				9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */,
-				9AF4FD4425232D4B009C65EB /* KeyValueView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -187,7 +184,6 @@
 			files = (
 				9A6B74232519B92100090BAE /* ContentView.swift in Sources */,
 				9A56D0532521C39F00601B64 /* testData.swift in Sources */,
-				9AF4FD4525232D4B009C65EB /* KeyValueView.swift in Sources */,
 				9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */,
 				9A8A6CE725219FFF0079B7FC /* GridSearchSelectView.swift in Sources */,
 				9AF4FD3A2522BFB2009C65EB /* GridSearchGrainView.swift in Sources */,
