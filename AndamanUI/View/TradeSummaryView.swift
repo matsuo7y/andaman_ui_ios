@@ -35,18 +35,9 @@ struct TradeSummaryView: View {
         .padding()
     }
     
-    @ViewBuilder
-    var contentView: some View {
-        if tradeSummary.tradeAlgorithm == TradeAlgorithm.Reaction {
-            paramsView(tradeSummary.reactionTradeAlgorithmParams!)
-        } else {
-            paramsView(tradeSummary.breakTradeAlgorithmParams!)
-        }
-    }
-    
     var body: some View {
         headerView
         Divider()
-        contentView
+        paramsView(tradeSummary.tradeParams)
     }
 }
