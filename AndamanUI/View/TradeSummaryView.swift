@@ -10,15 +10,20 @@ import SwiftUI
 struct TradeSummaryView: View {
     let tradeSummary: TradeSummary
     
-    private func paramsView(_ params: TradeParams) -> some View {
-        LazyVGrid(columns: GridItem.toArray(), alignment: .leading, spacing: 5) {
-            ForEach(0..<params.keyValues.count) {
-                let param = params.keyValues[$0]
-                Text(param.key).foregroundColor(.red)
-                Text(param.value)
+    @ViewBuilder
+    private func paramsView(_ params: Any) -> some View {
+        if let _params = params as? TradeParams {
+            LazyVGrid(columns: GridItem.toArray(), alignment: .leading, spacing: 5) {
+                ForEach(0..<_params.keyValues.count) {
+                    let param = _params.keyValues[$0]
+                    Text(param.key).foregroundColor(.red)
+                    Text(param.value)
+                }
             }
+            .padding()
+        } else {
+            EmptyView()
         }
-        .padding()
     }
     
     var headerView: some View {

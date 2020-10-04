@@ -53,7 +53,7 @@ struct TradeSummary {
     let tradeAlgorithm: TradeAlgorithm
     let realizedProfit: Float
     let tradeCount: Int
-    let tradeParams: TradeParams
+    let tradeParams: Any
 }
 
 struct GridSearchGrain {
