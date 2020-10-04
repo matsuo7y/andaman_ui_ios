@@ -19,12 +19,12 @@ class TestAPIClient: API {
             
             let tradeSummary = testTradeSummaries[direction]![algorithm]!
             
-            let grain =  GridSearchGrainResult(
+            let grain =  GridSearchGrain(
                 tradePair: pair,
                 timezone: timezone,
                 tradeDirection: direction,
                 positiveProportions: 64.0,
-                tradeSummaries: [tradeSummary, tradeSummary, tradeSummary]
+                tradeSummaries: Array(repeating: tradeSummary, count: 144)
             )
             
             promise(.success(GridSearchGrainResponse(grain: grain)))
@@ -35,7 +35,7 @@ class TestAPIClient: API {
         return Future<GridSearchGrainsResponse, APIError> { promise in
             sleep(1)
             
-            var grains: [GridSearchGrainResult] = []
+            var grains: [GridSearchGrain] = []
             
             for pair in TradePair.allCases {
                 for timezone in Timezone.allCases {
@@ -43,7 +43,7 @@ class TestAPIClient: API {
                         for algorithm in TradeAlgorithm.allCases {
                             let tradeSummary = testTradeSummaries[direction]![algorithm]!
                             
-                            let grain = GridSearchGrainResult(
+                            let grain = GridSearchGrain(
                                 tradePair: pair,
                                 timezone: timezone,
                                 tradeDirection: direction,

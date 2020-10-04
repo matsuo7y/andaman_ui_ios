@@ -13,7 +13,7 @@ class GridSearchGrainViewModel: ObservableObject {
     
     var cancellable: AnyCancellable?
     
-    @Published var grain: GridSearchGrainResult?
+    @Published var grain: GridSearchGrain?
     @Published var error: APIError?
     
     func fetch(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) {

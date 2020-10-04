@@ -11,7 +11,7 @@ struct ErrorResponse {
     
 }
 
-struct ReactionTradeAlgorithmParams {
+struct ReactionTradeAlgorithmParams: TradeParams {
     let tradeDirectionLong: Bool
     
     let smallFrameLength: Int
@@ -30,7 +30,7 @@ struct ReactionTradeAlgorithmParams {
     let pipsForProfit3: Float
 }
 
-struct BreakTradeAlgorithmParams {
+struct BreakTradeAlgorithmParams: TradeParams {
     let tradeDirectionLong: Bool
     
     let smallFrameLength: Int
@@ -57,7 +57,7 @@ struct TradeSummary {
     let breakTradeAlgorithmParams: BreakTradeAlgorithmParams?
 }
 
-struct GridSearchGrainResult {
+struct GridSearchGrain {
     let tradePair: TradePair
     let timezone: Timezone
     let tradeDirection: TradeDirection
@@ -66,9 +66,9 @@ struct GridSearchGrainResult {
 }
 
 struct GridSearchGrainResponse {
-    let grain: GridSearchGrainResult
+    let grain: GridSearchGrain
 }
 
 struct GridSearchGrainsResponse {
-    let grains: [GridSearchGrainResult]
+    let grains: [GridSearchGrain]
 }

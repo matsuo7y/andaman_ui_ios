@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A553BC6252961E000C7C44E /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC5252961E000C7C44E /* extensions.swift */; };
+		9A553BC925296B9D00C7C44E /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC825296B9D00C7C44E /* protocols.swift */; };
 		9A56D0492521B7E200601B64 /* definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0482521B7E200601B64 /* definitions.swift */; };
 		9A56D0532521C39F00601B64 /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0522521C39F00601B64 /* testData.swift */; };
 		9A56D0592521EA0300601B64 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0582521EA0300601B64 /* API.swift */; };
@@ -17,11 +19,14 @@
 		9A6B74282519B92200090BAE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B74272519B92200090BAE /* Preview Assets.xcassets */; };
 		9A8A6CE725219FFF0079B7FC /* GridSearchSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8A6CE625219FFF0079B7FC /* GridSearchSelectView.swift */; };
 		9A8A6CEC2521A1FD0079B7FC /* enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8A6CEB2521A1FD0079B7FC /* enums.swift */; };
+		9ABF7AA425295D1E00C95A30 /* TradeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABF7AA325295D1E00C95A30 /* TradeSummaryView.swift */; };
 		9AF4FD3A2522BFB2009C65EB /* GridSearchGrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */; };
 		9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4FD402523137E009C65EB /* GridSearchGrainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A553BC5252961E000C7C44E /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		9A553BC825296B9D00C7C44E /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		9A56D0482521B7E200601B64 /* definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = definitions.swift; sourceTree = "<group>"; };
 		9A56D0522521C39F00601B64 /* testData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
 		9A56D0582521EA0300601B64 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -34,6 +39,7 @@
 		9A6B74292519B92200090BAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A8A6CE625219FFF0079B7FC /* GridSearchSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchSelectView.swift; sourceTree = "<group>"; };
 		9A8A6CEB2521A1FD0079B7FC /* enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = enums.swift; sourceTree = "<group>"; };
+		9ABF7AA325295D1E00C95A30 /* TradeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeSummaryView.swift; sourceTree = "<group>"; };
 		9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchGrainView.swift; sourceTree = "<group>"; };
 		9AF4FD402523137E009C65EB /* GridSearchGrainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchGrainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +98,7 @@
 			children = (
 				9A8A6CE625219FFF0079B7FC /* GridSearchSelectView.swift */,
 				9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */,
+				9ABF7AA325295D1E00C95A30 /* TradeSummaryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -105,6 +112,8 @@
 				9A56D0482521B7E200601B64 /* definitions.swift */,
 				9A8A6CEB2521A1FD0079B7FC /* enums.swift */,
 				9AF4FD402523137E009C65EB /* GridSearchGrainViewModel.swift */,
+				9A553BC5252961E000C7C44E /* extensions.swift */,
+				9A553BC825296B9D00C7C44E /* protocols.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -185,13 +194,16 @@
 				9A6B74232519B92100090BAE /* ContentView.swift in Sources */,
 				9A56D0532521C39F00601B64 /* testData.swift in Sources */,
 				9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */,
+				9ABF7AA425295D1E00C95A30 /* TradeSummaryView.swift in Sources */,
 				9A8A6CE725219FFF0079B7FC /* GridSearchSelectView.swift in Sources */,
 				9AF4FD3A2522BFB2009C65EB /* GridSearchGrainView.swift in Sources */,
 				9A56D0492521B7E200601B64 /* definitions.swift in Sources */,
 				9A8A6CEC2521A1FD0079B7FC /* enums.swift in Sources */,
+				9A553BC925296B9D00C7C44E /* protocols.swift in Sources */,
 				9A6B74212519B92100090BAE /* AndamanUIApp.swift in Sources */,
 				9A56D0592521EA0300601B64 /* API.swift in Sources */,
 				9A56D05D2521EC8100601B64 /* TestAPIClient.swift in Sources */,
+				9A553BC6252961E000C7C44E /* extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

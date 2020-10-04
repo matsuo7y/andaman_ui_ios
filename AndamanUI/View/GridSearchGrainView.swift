@@ -24,37 +24,41 @@ struct GridSearchGrainView: View {
     }
     
     var headerView: some View {
-        let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-        
-        return LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
+        LazyVGrid(columns: GridItem.toArray(), alignment: .leading, spacing: 5) {
             Text("Trade Pair").foregroundColor(.blue)
             Text(pair.rawValue)
+            
             Text("Timezone").foregroundColor(.blue)
             Text(timezone.rawValue)
+            
             Text("Direction").foregroundColor(.blue)
             Text(direction.rawValue)
+            
             Text("Algorithm").foregroundColor(.blue)
             Text(algorithm.rawValue)
-            Text("Positive").foregroundColor(.blue)
             
-            let positive = NSString(format: "%.1f", self.model.grain!.positiveProportions) as String
-            Text(positive).foregroundColor(.green).bold()
+            Text("Positive").foregroundColor(.blue)
+            Text(self.model.grain!.positiveProportions.toString()).foregroundColor(.green).bold()
         }
         .padding()
     }
     
     var tradeSummariesView: some View {
-        let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-        
-        return ScrollView {
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 5) {
+        ScrollView {
+            LazyVGrid(columns: GridItem.toArray(3), alignment: .leading, spacing: 5) {
                 Text("Realized Profit").foregroundColor(.red)
                 Text("Trade Count").foregroundColor(.red)
+                Text("")
                 
                 let grain = self.model.grain!
                 ForEach(0..<grain.tradeSummaries.count) {
-                    Text(NSString(format: "%.1f", grain.tradeSummaries[$0].realizedProfit) as String)
-                    Text(NSString(format: "%d", grain.tradeSummaries[$0].tradeCount) as String)
+                    let tradeSummary = grain.tradeSummaries[$0]
+                    
+                    Text(tradeSummary.realizedProfit.toString())
+                    Text(tradeSummary.tradeCount.toString())
+                    NavigationLink(destination: TradeSummaryView(tradeSummary: tradeSummary)) {
+                        Text("Detail")
+                    }
                 }
             }
             .padding()
