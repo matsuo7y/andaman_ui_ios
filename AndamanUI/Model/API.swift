@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import Combine
 
 protocol API {
-    func gridSearchGrain(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) -> Future<GridSearchGrainResponse, APIError>
+    func gridSearchGrain(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) throws -> GridSearchGrainResponse
     
-    func firstGridSearchGrains() -> Future<GridSearchGrainsResponse, APIError>
+    func firstGridSearchGrains() throws -> GridSearchGrainsResponse
 }
 
 struct APIError: Error {

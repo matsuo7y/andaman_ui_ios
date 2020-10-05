@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		9A45AD47252AAE3B0062D5D6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A45AD46252AAE3B0062D5D6 /* MainView.swift */; };
 		9A45AD4A252AB6B20062D5D6 /* GridSearchFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A45AD49252AB6B20062D5D6 /* GridSearchFirstView.swift */; };
 		9A45AD4D252ABAB00062D5D6 /* GridSearchFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A45AD4C252ABAB00062D5D6 /* GridSearchFirstViewModel.swift */; };
+		9A45AD59252B009A0062D5D6 /* Promises in Frameworks */ = {isa = PBXBuildFile; productRef = 9A45AD58252B009A0062D5D6 /* Promises */; };
 		9A553BC6252961E000C7C44E /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC5252961E000C7C44E /* extensions.swift */; };
 		9A553BC925296B9D00C7C44E /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC825296B9D00C7C44E /* protocols.swift */; };
 		9A56D0492521B7E200601B64 /* definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0482521B7E200601B64 /* definitions.swift */; };
@@ -55,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A45AD59252B009A0062D5D6 /* Promises in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +146,7 @@
 			);
 			name = AndamanUI;
 			packageProductDependencies = (
+				9A45AD58252B009A0062D5D6 /* Promises */,
 			);
 			productName = AndamanUI;
 			productReference = 9A6B741D2519B92100090BAE /* AndamanUI.app */;
@@ -173,6 +176,7 @@
 			);
 			mainGroup = 9A6B74142519B92100090BAE;
 			packageReferences = (
+				9A45AD57252B009A0062D5D6 /* XCRemoteSwiftPackageReference "promises" */,
 			);
 			productRefGroup = 9A6B741E2519B92100090BAE /* Products */;
 			projectDirPath = "";
@@ -404,6 +408,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9A45AD57252B009A0062D5D6 /* XCRemoteSwiftPackageReference "promises" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/promises.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.10;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9A45AD58252B009A0062D5D6 /* Promises */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A45AD57252B009A0062D5D6 /* XCRemoteSwiftPackageReference "promises" */;
+			productName = Promises;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9A6B74152519B92100090BAE /* Project object */;
 }

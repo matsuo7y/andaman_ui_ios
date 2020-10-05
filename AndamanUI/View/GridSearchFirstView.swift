@@ -11,48 +11,60 @@ import Combine
 struct GridSearchFirstView: View {
     @ObservedObject var model: GridSearchFirstViewModel = GridSearchFirstViewModel()
     
-    private func cardView(_ grain: GridSearchGrain) -> some View {
-        let tradeSummary = grain.tradeSummaries[0]
-        
-        return Section(header: Text(
-            "\(grain.tradePair.asTradeParam):\(grain.timezone.asTradeParam):\(grain.tradeDirection.asTradeParam):\(tradeSummary.tradeAlgorithm.asTradeParam)"
-        )) {
-            HStack {
-                LazyVGrid(columns: GridItem.array2, alignment: .leading, spacing: 5) {
-                    Text("Positive").foregroundColor(.blue)
-                    Text(grain.positiveProportions.asTradeResult)
-                    
-                    Text("Realized Profit").foregroundColor(.blue)
-                    Text(tradeSummary.realizedProfit.asTradeResult)
-                    
-                    Text("Trade Count").foregroundColor(.blue)
-                    Text(tradeSummary.tradeCount.asTradeResult)
-                }
-                .padding()
-                
-                VStack(alignment: .center, spacing: 5) {
-                    Text("Detail")
-                    
-                    Text("Adopt")
-                    
-                    Text("Dismiss")
+    @ViewBuilder
+    private func cardView(_ key: GridSearchGrainKey) -> some View {
+        if let value = self.model.grains![key] {
+            Section(header: Text(
+                "\(key.tradePair.asTradeParam):\(key.timezone.asTradeParam):\(key.direction.asTradeParam)"
+            )) {
+                VStack {
+                    ForEach(0..<value.grains.count) {
+                        let grain = value.grains[$0]
+                        let tradeSummary = grain.tradeSummaries[0]
+                        
+                        HStack {
+                            LazyVGrid(columns: GridItem.array2, alignment: .leading, spacing: 5) {
+                                Text("Algorithm").foregroundColor(.blue)
+                                Text(tradeSummary.tradeAlgorithm.asTradeResult)
+                                
+                                Text("Positive").foregroundColor(.blue)
+                                Text(grain.positiveProportions.asTradeResult)
+                                
+                                Text("Realized Profit").foregroundColor(.blue)
+                                Text(tradeSummary.realizedProfit.asTradeResult)
+                                
+                                Text("Trade Count").foregroundColor(.blue)
+                                Text(tradeSummary.tradeCount.asTradeResult)
+                            }
+                            .background(Color.green.opacity(0.15))
+                            .frame(width: 280)
+                            
+                            VStack(alignment: .center, spacing: 5) {
+                                Text("Adopt").foregroundColor(.green)
+                                
+                                Text("Dismiss").foregroundColor(.red)
+                            }
+                        }
+                    }
                 }
             }
+        } else {
+            EmptyView()
         }
     }
     
     var successView: some View {
         VStack {
             HStack(spacing: 10) {
-                Text("Done").foregroundColor(.red)
+                Text("Done").foregroundColor(.blue)
                 Button(action: { self.model.refresh() }) {
                     Text("Refresh").foregroundColor(.green)
                 }
             }
             
             List {
-                ForEach(0..<self.model.grains!.count) {
-                    cardView(self.model.grains![$0])
+                ForEach(0..<self.model.keys.count) {
+                    cardView(self.model.keys[$0])
                 }
             }
         }
