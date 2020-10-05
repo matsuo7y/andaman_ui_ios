@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var currentTab = 0
+    
     var body: some View {
-        TabView {
+        TabView(selection: $currentTab) {
             GridSearchSelectView()
                 .tabItem {
                     Text("GS Select")
                 }
-            Text("test")
+                .tag(0)
+                .onAppear {
+                    self.currentTab = 0
+                }
+            GridSearchFirstView()
                 .tabItem {
                     Text("GS First")
+                }
+                .tag(1)
+                .onAppear {
+                    self.currentTab = 1
                 }
         }
     }
