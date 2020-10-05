@@ -73,14 +73,26 @@ struct GridSearchGrainView: View {
         }
     }
     
+    var errorView: some View {
+        VStack {
+            Text(String(self.model.error!.statusCode))
+            Text(self.model.error!.message)
+        }
+    }
+    
     var fetchView: some View {
         Text("fetching...")
     }
     
+    @ViewBuilder
     var content: some View {
-        self.model.grain != nil
-            ? ViewBuilder.buildEither(first: successView)
-            : ViewBuilder.buildEither(second: fetchView)
+        if self.model.grain != nil {
+            successView
+        } else if self.model.error != nil {
+            errorView
+        } else {
+            fetchView
+        }
     }
     
     var body: some View {
