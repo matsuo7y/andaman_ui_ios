@@ -23,7 +23,7 @@ let reactionTradeAlgorithmParams0 = ReactionTradeAlgorithmParams(
 )
 
 let reactionTradeSummary0 = TradeSummary(
-    tradeAlgorithm: TradeAlgorithm.Reaction,
+    tradeAlgorithm: TradeAlgorithm.reaction,
     realizedProfit: 500.0,
     tradeCount: 83,
     tradeParams: reactionTradeAlgorithmParams0
@@ -45,7 +45,7 @@ let reactionTradeAlgorithmParams1 = ReactionTradeAlgorithmParams(
 )
 
 let reactionTradeSummary1 = TradeSummary(
-    tradeAlgorithm: TradeAlgorithm.Reaction,
+    tradeAlgorithm: TradeAlgorithm.reaction,
     realizedProfit: -100.0,
     tradeCount: 42,
     tradeParams: reactionTradeAlgorithmParams1
@@ -67,7 +67,7 @@ let breakTradeAlgorithmParams0 = BreakTradeAlgorithmParams(
 )
 
 let breakTradeSummary0 = TradeSummary(
-    tradeAlgorithm: TradeAlgorithm.Break,
+    tradeAlgorithm: TradeAlgorithm.breaking,
     realizedProfit: 200.0,
     tradeCount: 64,
     tradeParams: breakTradeAlgorithmParams0
@@ -89,20 +89,20 @@ let breakTradeAlgorithmParams1 = BreakTradeAlgorithmParams(
 )
 
 let breakTradeSummary1 = TradeSummary(
-    tradeAlgorithm: TradeAlgorithm.Break,
+    tradeAlgorithm: TradeAlgorithm.breaking,
     realizedProfit: -300.0,
     tradeCount: 25,
     tradeParams: breakTradeAlgorithmParams1
 )
 
 let testTradeSummaries = [
-    TradeDirection.Long: [
-        TradeAlgorithm.Reaction: reactionTradeSummary0,
-        TradeAlgorithm.Break: breakTradeSummary0
+    TradeDirection.long: [
+        TradeAlgorithm.reaction: reactionTradeSummary0,
+        TradeAlgorithm.breaking: breakTradeSummary0
     ],
     
-    TradeDirection.Short: [
-        TradeAlgorithm.Reaction: reactionTradeSummary1,
-        TradeAlgorithm.Break: breakTradeSummary1
+    TradeDirection.short: [
+        TradeAlgorithm.reaction: reactionTradeSummary1,
+        TradeAlgorithm.breaking: breakTradeSummary1
     ]
 ]

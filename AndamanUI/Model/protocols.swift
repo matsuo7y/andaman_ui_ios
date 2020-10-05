@@ -7,8 +7,9 @@
 
 import Foundation
 
-protocol Stringable {
-    func toString() -> String
+protocol Displayable {
+    var asTradeParam: String { get }
+    var asTradeResult: String { get }
 }
 
 protocol TradeParams {
@@ -23,8 +24,8 @@ extension TradeParams {
             let key = member.label!
             
             switch member.value {
-            case let value as Stringable:
-                kvs.append((key, value.toString()))
+            case let value as Displayable:
+                kvs.append((key, value.asTradeParam))
             default:
                 kvs.append((key, "not stringable"))
             }

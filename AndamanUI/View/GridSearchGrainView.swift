@@ -24,28 +24,28 @@ struct GridSearchGrainView: View {
     }
     
     var headerView: some View {
-        LazyVGrid(columns: GridItem.toArray(), alignment: .leading, spacing: 5) {
+        LazyVGrid(columns: GridItem.array2, alignment: .leading, spacing: 5) {
             Text("Trade Pair").foregroundColor(.blue)
-            Text(pair.rawValue)
+            Text(pair.asTradeParam)
             
             Text("Timezone").foregroundColor(.blue)
-            Text(timezone.rawValue)
+            Text(timezone.asTradeParam)
             
             Text("Direction").foregroundColor(.blue)
-            Text(direction.rawValue)
+            Text(direction.asTradeParam)
             
             Text("Algorithm").foregroundColor(.blue)
-            Text(algorithm.rawValue)
+            Text(algorithm.asTradeParam)
             
             Text("Positive").foregroundColor(.blue)
-            Text(self.model.grain!.positiveProportions.toString()).foregroundColor(.green).bold()
+            Text(self.model.grain!.positiveProportions.asTradeResult).foregroundColor(.green).bold()
         }
         .padding()
     }
     
     var tradeSummariesView: some View {
         ScrollView {
-            LazyVGrid(columns: GridItem.toArray(3), alignment: .leading, spacing: 5) {
+            LazyVGrid(columns: GridItem.array3, alignment: .leading, spacing: 5) {
                 Text("Realized Profit").foregroundColor(.red)
                 Text("Trade Count").foregroundColor(.red)
                 Text("")
@@ -54,8 +54,8 @@ struct GridSearchGrainView: View {
                 ForEach(0..<grain.tradeSummaries.count) {
                     let tradeSummary = grain.tradeSummaries[$0]
                     
-                    Text(tradeSummary.realizedProfit.toString())
-                    Text(tradeSummary.tradeCount.toString())
+                    Text(tradeSummary.realizedProfit.asTradeResult)
+                    Text(tradeSummary.tradeCount.asTradeResult)
                     NavigationLink(destination: TradeSummaryView(tradeSummary: tradeSummary)) {
                         Text("Detail")
                     }
@@ -95,8 +95,8 @@ struct GridSearchGrainView_Previews: PreviewProvider {
         GridSearchGrainView(
             pair: TradePair.GbpUsd,
             timezone: Timezone.TokyoAM,
-            direction: TradeDirection.Long,
-            algorithm: TradeAlgorithm.Reaction
+            direction: TradeDirection.long,
+            algorithm: TradeAlgorithm.reaction
         )
     }
 }
