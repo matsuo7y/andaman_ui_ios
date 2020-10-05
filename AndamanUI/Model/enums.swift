@@ -47,26 +47,26 @@ enum TradePair: Int, CaseIterable, Displayable {
 }
 
 enum Timezone: Int, CaseIterable, Displayable {
-    case TokyoAM
-    case TokyoPM
-    case LondonAM
-    case LondonPM
-    case NewYorkAM
-    case NewYorkPM
+    case tokyoAM
+    case tokyoPM
+    case londonAM
+    case londonPM
+    case newyorkAM
+    case newyorkPM
     
     var asTradeParam: String {
         switch self {
-        case .TokyoAM:
+        case .tokyoAM:
             return "Tokyo AM"
-        case .TokyoPM:
+        case .tokyoPM:
             return "Tokyo PM"
-        case .LondonAM:
+        case .londonAM:
             return "London AM"
-        case .LondonPM:
+        case .londonPM:
             return "London PM"
-        case .NewYorkAM:
+        case .newyorkAM:
             return "NewYork AM"
-        case .NewYorkPM:
+        case .newyorkPM:
             return "NewYork PM"
         }
     }

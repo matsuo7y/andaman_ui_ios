@@ -27,7 +27,7 @@ extension TradeParams {
             case let value as Displayable:
                 kvs.append((key, value.asTradeParam))
             default:
-                kvs.append((key, "not stringable"))
+                kvs.append((key, "not displayable"))
             }
         }
         
