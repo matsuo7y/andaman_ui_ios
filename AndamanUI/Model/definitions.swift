@@ -56,18 +56,21 @@ struct TradeSummary {
     let tradeParams: Any
 }
 
-struct GridSearchGrain {
+struct GridSearchGrainKey {
     let tradePair: TradePair
     let timezone: Timezone
     let tradeDirection: TradeDirection
+    let tradeAlgorithm: TradeAlgorithm
+}
+
+struct GridSearchGrain {
+    let key: GridSearchGrainKey
     let positiveProportions: Float
     let tradeSummaries: [TradeSummary]
 }
 
 struct GridSearchGrainFirst {
-    let tradePair: TradePair
-    let timezone: Timezone
-    let tradeDirection: TradeDirection
+    let key: GridSearchGrainKey
     let positiveProportions: Float
     let tradeSummary: TradeSummary
 }

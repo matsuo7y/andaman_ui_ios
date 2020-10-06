@@ -26,20 +26,22 @@ struct GridSearchGrainView: View {
     
     var headerView: some View {
         LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
+            let grain = self.model.grain!
+            
             Text("Trade Pair").foregroundColor(.blue)
-            Text(pair.asTradeParam)
+            Text(grain.key.tradePair.asTradeParam)
             
             Text("Timezone").foregroundColor(.blue)
-            Text(timezone.asTradeParam)
+            Text(grain.key.timezone.asTradeParam)
             
             Text("Direction").foregroundColor(.blue)
-            Text(direction.asTradeParam)
+            Text(grain.key.tradeDirection.asTradeParam)
             
             Text("Algorithm").foregroundColor(.blue)
-            Text(algorithm.asTradeParam)
+            Text(grain.key.tradeAlgorithm.asTradeParam)
             
             Text("Positive").foregroundColor(.blue)
-            Text(self.model.grain!.positiveProportions.asTradeResult).foregroundColor(.green).bold()
+            Text(grain.positiveProportions.asTradeResult).foregroundColor(.green).bold()
         }
         .padding()
     }

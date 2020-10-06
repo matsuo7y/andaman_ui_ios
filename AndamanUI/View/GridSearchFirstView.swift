@@ -15,7 +15,7 @@ struct GridSearchFirstView: View {
     @State var alertView: Alert?
     
     @ViewBuilder
-    private func cardView(_ key: GridSearchGrainKey) -> some View {
+    private func cardView(_ key: GridSearchGrainSimpleKey) -> some View {
         if let value = self.model.firsts![key] {
             VStack {
                 Text("\(key.tradePair.asTradeParam):\(key.timezone.asTradeParam):\(key.direction.asTradeParam)")
@@ -31,12 +31,12 @@ struct GridSearchFirstView: View {
                     let i = $0
                     let first = value.firsts[i]
                     let tradeSummary = first.tradeSummary
-                    let background = i == value.selected ? Color.green.opacity(0.15) : Color.red.opacity(0.15)
+                    let background = value.selected[i] ? Color.green.opacity(0.15) : Color.red.opacity(0.15)
                     
                     HStack {
                         LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
                             Text("Algorithm").foregroundColor(.blue)
-                            Text(tradeSummary.tradeAlgorithm.asTradeResult)
+                            Text(first.key.tradeAlgorithm.asTradeResult)
                             
                             Text("Positive").foregroundColor(.blue)
                             Text(first.positiveProportions.asTradeResult)
@@ -56,14 +56,14 @@ struct GridSearchFirstView: View {
                             }
                             
                             Button(action: {
-                                if let error = self.model.adopt(key: key, selected: i) {
+                                if let error = self.model.adopt(key: key, index: i) {
                                     self.alertView = Alert(title: Text(error.title), message: Text(error.message))
                                 }
                             }) {
                                 Text("Adopt").foregroundColor(.green)
                             }
                             
-                            Button(action: { self.model.dismiss(key: key) }) {
+                            Button(action: { self.model.dismiss(key: key, index: i) }) {
                                 Text("Dismiss").foregroundColor(.red)
                             }
                         }

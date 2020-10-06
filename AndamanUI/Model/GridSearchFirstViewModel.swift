@@ -12,43 +12,38 @@ import Promises
 class GridSearchFirstViewModel: ObservableObject {
     private let api = TestAPIClient.shared
     
-    @Published var firsts: [GridSearchGrainKey: GridSearchGrainFirstValue]?
+    @Published var firsts: [GridSearchGrainSimpleKey: GridSearchGrainFirstValue]?
     @Published var error: APIError?
     
-    var keys: [GridSearchGrainKey] {
-        var keys: [GridSearchGrainKey] = []
+    var keys: [GridSearchGrainSimpleKey] {
+        var keys: [GridSearchGrainSimpleKey] = []
         for tradePair in TradePair.allCases {
             for timezone in Timezone.allCases {
                 for direction in TradeDirection.allCases {
-                    keys.append(GridSearchGrainKey(tradePair: tradePair, timezone: timezone, direction: direction))
+                    keys.append(GridSearchGrainSimpleKey(tradePair: tradePair, timezone: timezone, direction: direction))
                 }
             }
         }
         return keys
     }
     
-    func makeFirsts(_ flatFirsts: [GridSearchGrainFirst]) -> [GridSearchGrainKey: GridSearchGrainFirstValue] {
-        var firsts: [GridSearchGrainKey: GridSearchGrainFirstValue] = [:]
+    private func makeFirsts(_ flatFirsts: [GridSearchGrainFirst]) -> [GridSearchGrainSimpleKey: GridSearchGrainFirstValue] {
+        var firsts: [GridSearchGrainSimpleKey: GridSearchGrainFirstValue] = [:]
         
         for first in flatFirsts {
-            let key = GridSearchGrainKey(tradePair: first.tradePair, timezone: first.timezone, direction: first.tradeDirection)
+            let key = GridSearchGrainSimpleKey(tradePair: first.key.tradePair, timezone: first.key.timezone, direction: first.key.tradeDirection)
             let realizedProfit = first.tradeSummary.realizedProfit
             
             if var value = firsts[key] {
-                if value.maxRealizedProfit < realizedProfit && realizedProfit > 0 {
-                    value.maxRealizedProfit = realizedProfit
-                    value.selected = value.firsts.count
-                }
+                let selected = realizedProfit > 0 ? true : false
                 
                 value.firsts.append(first)
+                value.selected.append(selected)
+                
                 firsts[key] = value
             } else {
-                var selected = -1
-                if realizedProfit > 0 {
-                    selected = 0
-                }
-                
-                firsts[key] = GridSearchGrainFirstValue(firsts: [first], maxRealizedProfit: realizedProfit, selected: selected)
+                let selected = realizedProfit > 0 ? true : false
+                firsts[key] = GridSearchGrainFirstValue(firsts: [first], selected: [selected])
             }
         }
         
@@ -64,7 +59,7 @@ class GridSearchFirstViewModel: ObservableObject {
             }
         }
         .then(on: .global()) { resp in
-            Promise<[GridSearchGrainKey: GridSearchGrainFirstValue]> { fulfill, _ in
+            Promise<[GridSearchGrainSimpleKey: GridSearchGrainFirstValue]> { fulfill, _ in
                 fulfill(self.makeFirsts(resp.firsts))
             }
         }
@@ -86,10 +81,10 @@ class GridSearchFirstViewModel: ObservableObject {
         self.fetch()
     }
     
-    func adopt(key: GridSearchGrainKey, selected: Int) -> AlertError? {
+    func adopt(key: GridSearchGrainSimpleKey, index: Int) -> AlertError? {
         if var value = self.firsts![key] {
-            if value.firsts[selected].tradeSummary.realizedProfit > 0 {
-                value.selected = selected
+            if value.firsts[index].tradeSummary.realizedProfit > 0 {
+                value.selected[index] = true
                 self.firsts![key] = value
                 return nil
             }
@@ -98,15 +93,15 @@ class GridSearchFirstViewModel: ObservableObject {
         return AlertError(title: "Adopt Error", message: "no key")
     }
     
-    func dismiss(key: GridSearchGrainKey) {
+    func dismiss(key: GridSearchGrainSimpleKey, index: Int) {
         if var value = self.firsts![key] {
-            value.selected = -1
+            value.selected[index] = false
             self.firsts![key] = value
         }
     }
 }
 
-struct GridSearchGrainKey: Hashable {
+struct GridSearchGrainSimpleKey: Hashable {
     var tradePair: TradePair
     var timezone: Timezone
     var direction: TradeDirection
@@ -114,6 +109,5 @@ struct GridSearchGrainKey: Hashable {
 
 struct GridSearchGrainFirstValue {
     var firsts: [GridSearchGrainFirst]
-    var maxRealizedProfit: Float
-    var selected: Int
+    var selected: [Bool]
 }
