@@ -15,8 +15,8 @@ struct GridSearchFirstView: View {
     @State var alertView: Alert?
     
     @ViewBuilder
-    private func cardView(_ key: GridSearchGrainSimpleKey) -> some View {
-        if let value = self.model.firsts![key] {
+    private func cardView(_ key: GridSearchGrainKey) -> some View {
+        if let value = self.model.firstsDict![key] {
             VStack {
                 Text("\(key.tradePair.asTradeParam):\(key.timezone.asTradeParam):\(key.direction.asTradeParam)")
                     .font(.headline)
@@ -97,7 +97,7 @@ struct GridSearchFirstView: View {
     
     @ViewBuilder
     var content: some View {
-        if self.model.firsts !=  nil {
+        if self.model.firstsDict !=  nil {
             successView
         } else {
             fetchView
@@ -107,7 +107,7 @@ struct GridSearchFirstView: View {
     var body: some View {
         VStack {
             HStack(spacing: 10) {
-                Text("Send").foregroundColor(.green)
+                Text("Approve").foregroundColor(.green)
                 Button(action: { self.model.refresh() }) {
                     Text("Refresh").foregroundColor(.blue)
                 }

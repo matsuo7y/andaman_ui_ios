@@ -12,26 +12,26 @@ import Promises
 class GridSearchFirstViewModel: ObservableObject {
     private let api = TestAPIClient.shared
     
-    @Published var firsts: [GridSearchGrainSimpleKey: GridSearchGrainFirstValue]?
+    @Published var firstsDict: [GridSearchGrainKey: GridSearchGrainFirstValue]?
     @Published var error: APIError?
     
-    var keys: [GridSearchGrainSimpleKey] {
-        var keys: [GridSearchGrainSimpleKey] = []
+    var keys: [GridSearchGrainKey] {
+        var keys: [GridSearchGrainKey] = []
         for tradePair in TradePair.allCases {
             for timezone in Timezone.allCases {
                 for direction in TradeDirection.allCases {
-                    keys.append(GridSearchGrainSimpleKey(tradePair: tradePair, timezone: timezone, direction: direction))
+                    keys.append(GridSearchGrainKey(tradePair: tradePair, timezone: timezone, direction: direction))
                 }
             }
         }
         return keys
     }
     
-    private func makeFirsts(_ flatFirsts: [GridSearchGrainFirst]) -> [GridSearchGrainSimpleKey: GridSearchGrainFirstValue] {
-        var firsts: [GridSearchGrainSimpleKey: GridSearchGrainFirstValue] = [:]
+    private func makeFirstsDict(_ flatFirsts: [GridSearchGrainFirst]) -> [GridSearchGrainKey: GridSearchGrainFirstValue] {
+        var firsts: [GridSearchGrainKey: GridSearchGrainFirstValue] = [:]
         
         for first in flatFirsts {
-            let key = GridSearchGrainSimpleKey(tradePair: first.key.tradePair, timezone: first.key.timezone, direction: first.key.tradeDirection)
+            let key = GridSearchGrainKey(tradePair: first.key.tradePair, timezone: first.key.timezone, direction: first.key.tradeDirection)
             let realizedProfit = first.tradeSummary.realizedProfit
             
             if var value = firsts[key] {
@@ -59,12 +59,12 @@ class GridSearchFirstViewModel: ObservableObject {
             }
         }
         .then(on: .global()) { resp in
-            Promise<[GridSearchGrainSimpleKey: GridSearchGrainFirstValue]> { fulfill, _ in
-                fulfill(self.makeFirsts(resp.firsts))
+            Promise<[GridSearchGrainKey: GridSearchGrainFirstValue]> { fulfill, _ in
+                fulfill(self.makeFirstsDict(resp.firsts))
             }
         }
         .then { firsts in
-            self.firsts = firsts
+            self.firstsDict = firsts
         }
         .catch { error in
             if let _error = error as? APIError {
@@ -76,16 +76,16 @@ class GridSearchFirstViewModel: ObservableObject {
     }
     
     func refresh() {
-        self.firsts = nil
+        self.firstsDict = nil
         self.error = nil
         self.fetch()
     }
     
-    func adopt(key: GridSearchGrainSimpleKey, index: Int) -> AlertError? {
-        if var value = self.firsts![key] {
+    func adopt(key: GridSearchGrainKey, index: Int) -> AlertError? {
+        if var value = self.firstsDict![key] {
             if value.firsts[index].tradeSummary.realizedProfit > 0 {
                 value.selected[index] = true
-                self.firsts![key] = value
+                self.firstsDict![key] = value
                 return nil
             }
             return AlertError(title: "Adopt Error", message: "realized profit should be positive")
@@ -93,15 +93,15 @@ class GridSearchFirstViewModel: ObservableObject {
         return AlertError(title: "Adopt Error", message: "no key")
     }
     
-    func dismiss(key: GridSearchGrainSimpleKey, index: Int) {
-        if var value = self.firsts![key] {
+    func dismiss(key: GridSearchGrainKey, index: Int) {
+        if var value = self.firstsDict![key] {
             value.selected[index] = false
-            self.firsts![key] = value
+            self.firstsDict![key] = value
         }
     }
 }
 
-struct GridSearchGrainSimpleKey: Hashable {
+struct GridSearchGrainKey: Hashable {
     var tradePair: TradePair
     var timezone: Timezone
     var direction: TradeDirection

@@ -18,7 +18,7 @@ class TestAPIClient: API {
         let tradeSummary = testTradeSummaries[direction]![algorithm]!
         
         let grain =  GridSearchGrain(
-            key: GridSearchGrainKey(
+            key: TradeGrainKey(
                 tradePair: pair,
                 timezone: timezone,
                 tradeDirection: direction,
@@ -43,7 +43,7 @@ class TestAPIClient: API {
                         let tradeSummary = testTradeSummaries[direction]![algorithm]!
                         
                         let first = GridSearchGrainFirst(
-                            key: GridSearchGrainKey(
+                            key: TradeGrainKey(
                                 tradePair: pair,
                                 timezone: timezone,
                                 tradeDirection: direction,

@@ -56,7 +56,7 @@ struct TradeSummary {
     let tradeParams: Any
 }
 
-struct GridSearchGrainKey {
+struct TradeGrainKey {
     let tradePair: TradePair
     let timezone: Timezone
     let tradeDirection: TradeDirection
@@ -64,13 +64,13 @@ struct GridSearchGrainKey {
 }
 
 struct GridSearchGrain {
-    let key: GridSearchGrainKey
+    let key: TradeGrainKey
     let positiveProportions: Float
     let tradeSummaries: [TradeSummary]
 }
 
 struct GridSearchGrainFirst {
-    let key: GridSearchGrainKey
+    let key: TradeGrainKey
     let positiveProportions: Float
     let tradeSummary: TradeSummary
 }
@@ -86,4 +86,14 @@ struct GridSearchGrainFirstsResponse {
 struct AlertError: Error {
     let title: String
     let message: String
+}
+
+// requests
+struct ApprovedTradeGrain {
+    let key: TradeGrainKey
+    let tradeParam: Any
+}
+
+struct ApprovedTradeGrainsRequest {
+    let grains: [ApprovedTradeGrain]
 }
