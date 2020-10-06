@@ -71,3 +71,8 @@ struct GridSearchGrainResponse {
 struct GridSearchGrainsResponse {
     let grains: [GridSearchGrain]
 }
+
+struct AlertError: Error {
+    let title: String
+    let message: String
+}

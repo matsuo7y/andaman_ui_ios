@@ -39,15 +39,23 @@ extension Bool: Displayable {
 }
 
 extension GridItem {
-    static func toArray(_ count: Int) -> [GridItem] {
+    static func toFlexibles(_ count: Int) -> [GridItem] {
         Array(repeating: .init(.flexible()), count: count)
     }
     
-    static var array2: [GridItem] {
-        toArray(2)
+    static var flexible1: [GridItem] {
+        toFlexibles(1)
     }
     
-    static var array3: [GridItem] {
-        toArray(3)
+    static var flexible2: [GridItem] {
+        toFlexibles(2)
     }
+    
+    static var flexible3: [GridItem] {
+        toFlexibles(3)
+    }
+}
+
+extension Alert: Identifiable {
+    public var id: UUID { UUID() }
 }

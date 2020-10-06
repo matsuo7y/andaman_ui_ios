@@ -13,7 +13,8 @@ protocol API {
     func firstGridSearchGrains() throws -> GridSearchGrainsResponse
 }
 
-struct APIError: Error {
+struct APIError: Error, Identifiable {
+    var id = UUID()
     let statusCode: Int
     let message: String
 }

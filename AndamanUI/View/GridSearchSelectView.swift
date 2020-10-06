@@ -49,7 +49,7 @@ struct GridSearchSelectView: View {
                     Text("Select")
                 }
             }
-            .navigationBarTitle("Select Grid Search")
+            .navigationBarTitle("Grid Search Select")
         }
     }
 }

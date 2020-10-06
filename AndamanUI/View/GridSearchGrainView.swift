@@ -10,6 +10,7 @@ import Combine
 
 struct GridSearchGrainView: View {
     @ObservedObject var model: GridSearchGrainViewModel = GridSearchGrainViewModel()
+    @State var sheetView: TradeSummaryView?
     
     let pair: TradePair
     let timezone: Timezone
@@ -24,7 +25,7 @@ struct GridSearchGrainView: View {
     }
     
     var headerView: some View {
-        LazyVGrid(columns: GridItem.array2, alignment: .leading, spacing: 5) {
+        LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
             Text("Trade Pair").foregroundColor(.blue)
             Text(pair.asTradeParam)
             
@@ -45,7 +46,7 @@ struct GridSearchGrainView: View {
     
     var tradeSummariesView: some View {
         ScrollView {
-            LazyVGrid(columns: GridItem.array3, alignment: .leading, spacing: 5) {
+            LazyVGrid(columns: GridItem.flexible3, alignment: .leading, spacing: 5) {
                 Text("Realized Profit").foregroundColor(.red)
                 Text("Trade Count").foregroundColor(.red)
                 Text("")
@@ -56,8 +57,8 @@ struct GridSearchGrainView: View {
                     
                     Text(tradeSummary.realizedProfit.asTradeResult)
                     Text(tradeSummary.tradeCount.asTradeResult)
-                    NavigationLink(destination: TradeSummaryView(tradeSummary: tradeSummary)) {
-                        Text("Detail")
+                    Button(action: { self.sheetView = TradeSummaryView(tradeSummary: tradeSummary) }) {
+                        Text("Detail").foregroundColor(.blue)
                     }
                 }
             }
@@ -88,8 +89,6 @@ struct GridSearchGrainView: View {
     var content: some View {
         if self.model.grain != nil {
             successView
-        } else if self.model.error != nil {
-            errorView
         } else {
             fetchView
         }
@@ -98,6 +97,10 @@ struct GridSearchGrainView: View {
     var body: some View {
         content.onAppear {
             self.model.fetch(pair: pair, timezone: timezone, direction: direction, algorithm: algorithm)
+        }
+        .sheet(item: self.$sheetView) { $0 }
+        .alert(item: self.$model.error) {
+            Alert(title: Text($0.statusCode.asTradeResult), message: Text($0.message))
         }
     }
 }

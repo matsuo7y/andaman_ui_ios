@@ -12,8 +12,6 @@ import Promises
 class GridSearchFirstViewModel: ObservableObject {
     private let api = TestAPIClient.shared
     
-    var promise: Any?
-    
     @Published var grains: [GridSearchGrainKey: GridSearchGrainValue]?
     @Published var error: APIError?
     
@@ -58,7 +56,7 @@ class GridSearchFirstViewModel: ObservableObject {
     }
     
     func fetch() {
-        promise = Promise<GridSearchGrainsResponse>(on: .global()) { fulfill, reject in
+        Promise<GridSearchGrainsResponse>(on: .global()) { fulfill, reject in
             do {
                 fulfill(try self.api.firstGridSearchGrains())
             } catch(let error) {
@@ -86,6 +84,25 @@ class GridSearchFirstViewModel: ObservableObject {
         self.grains = nil
         self.error = nil
         self.fetch()
+    }
+    
+    func adopt(key: GridSearchGrainKey, selected: Int) -> AlertError? {
+        if var value = self.grains![key] {
+            if value.grains[selected].tradeSummaries[0].realizedProfit > 0 {
+                value.selected = selected
+                self.grains![key] = value
+                return nil
+            }
+            return AlertError(title: "Adopt Error", message: "realized profit should be positive")
+        }
+        return AlertError(title: "Adopt Error", message: "no key")
+    }
+    
+    func dismiss(key: GridSearchGrainKey) {
+        if var value = self.grains![key] {
+            value.selected = -1
+            self.grains![key] = value
+        }
     }
 }
 

@@ -11,41 +11,66 @@ import Combine
 struct GridSearchFirstView: View {
     @ObservedObject var model: GridSearchFirstViewModel = GridSearchFirstViewModel()
     
+    @State var sheetView: TradeSummaryView?
+    @State var alertView: Alert?
+    
     @ViewBuilder
     private func cardView(_ key: GridSearchGrainKey) -> some View {
         if let value = self.model.grains![key] {
-            Section(header: Text(
-                "\(key.tradePair.asTradeParam):\(key.timezone.asTradeParam):\(key.direction.asTradeParam)"
-            )) {
-                VStack {
-                    ForEach(0..<value.grains.count) {
-                        let grain = value.grains[$0]
-                        let tradeSummary = grain.tradeSummaries[0]
-                        
-                        HStack {
-                            LazyVGrid(columns: GridItem.array2, alignment: .leading, spacing: 5) {
-                                Text("Algorithm").foregroundColor(.blue)
-                                Text(tradeSummary.tradeAlgorithm.asTradeResult)
-                                
-                                Text("Positive").foregroundColor(.blue)
-                                Text(grain.positiveProportions.asTradeResult)
-                                
-                                Text("Realized Profit").foregroundColor(.blue)
-                                Text(tradeSummary.realizedProfit.asTradeResult)
-                                
-                                Text("Trade Count").foregroundColor(.blue)
-                                Text(tradeSummary.tradeCount.asTradeResult)
-                            }
-                            .background(Color.green.opacity(0.15))
-                            .frame(width: 280)
+            VStack {
+                Text("\(key.tradePair.asTradeParam):\(key.timezone.asTradeParam):\(key.direction.asTradeParam)")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .background(Color.secondary)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 10)
+                    
+                
+                ForEach(0..<value.grains.count) {
+                    let i = $0
+                    let grain = value.grains[i]
+                    let tradeSummary = grain.tradeSummaries[0]
+                    let background = i == value.selected ? Color.green.opacity(0.15) : Color.red.opacity(0.15)
+                    
+                    HStack {
+                        LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
+                            Text("Algorithm").foregroundColor(.blue)
+                            Text(tradeSummary.tradeAlgorithm.asTradeResult)
                             
-                            VStack(alignment: .center, spacing: 5) {
+                            Text("Positive").foregroundColor(.blue)
+                            Text(grain.positiveProportions.asTradeResult)
+                            
+                            Text("Realized Profit").foregroundColor(.blue)
+                            Text(tradeSummary.realizedProfit.asTradeResult)
+                            
+                            Text("Trade Count").foregroundColor(.blue)
+                            Text(tradeSummary.tradeCount.asTradeResult)
+                        }
+                        .background(background)
+                        .frame(width: 280)
+                        
+                        VStack(alignment: .center, spacing: 5) {
+                            Button(action: { self.sheetView = TradeSummaryView(tradeSummary: tradeSummary) }) {
+                                Text("Detail").foregroundColor(.blue)
+                            }
+                            
+                            Button(action: {
+                                if let error = self.model.adopt(key: key, selected: i) {
+                                    self.alertView = Alert(title: Text(error.title), message: Text(error.message))
+                                }
+                            }) {
                                 Text("Adopt").foregroundColor(.green)
-                                
+                            }
+                            
+                            Button(action: { self.model.dismiss(key: key) }) {
                                 Text("Dismiss").foregroundColor(.red)
                             }
                         }
+                        .frame(width: 100)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 10)
                 }
             }
         } else {
@@ -54,48 +79,50 @@ struct GridSearchFirstView: View {
     }
     
     var successView: some View {
-        VStack {
-            HStack(spacing: 10) {
-                Text("Done").foregroundColor(.blue)
-                Button(action: { self.model.refresh() }) {
-                    Text("Refresh").foregroundColor(.green)
-                }
+        ScrollView {
+            ForEach(0..<self.model.keys.count) {
+                cardView(self.model.keys[$0])
+                Divider()
             }
-            
-            List {
-                ForEach(0..<self.model.keys.count) {
-                    cardView(self.model.keys[$0])
-                }
-            }
-        }
-    }
-    
-    var errorView: some View {
-        VStack {
-            Text(self.model.error!.statusCode.asTradeResult)
-            Text(self.model.error!.message)
         }
     }
     
     var fetchView: some View {
-        Text("fetching...")
+        VStack {
+            Spacer()
+            Text("fetching...")
+            Spacer()
+        }
     }
     
     @ViewBuilder
     var content: some View {
         if self.model.grains !=  nil {
             successView
-        } else if self.model.error != nil {
-            errorView
         } else {
             fetchView
         }
     }
     
     var body: some View {
-        content.onAppear {
-            self.model.fetch()
+        VStack {
+            HStack(spacing: 10) {
+                Text("Send").foregroundColor(.green)
+                Button(action: { self.model.refresh() }) {
+                    Text("Refresh").foregroundColor(.blue)
+                }
+            }
+            .alert(item: self.$model.error) {
+                Alert(title: Text($0.statusCode.asTradeResult), message: Text($0.message))
+            }
+            
+            content.onAppear {
+                self.model.fetch()
+            }
+            .sheet(item: self.$sheetView) { $0 }
+            .alert(item: self.$alertView) { $0 }
         }
+        .frame(maxHeight: .infinity, alignment: .top)
     }
 }
 
