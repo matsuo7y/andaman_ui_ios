@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ErrorResponse {
-    
+struct SuccessResponse {
+    let message: String
 }
 
 struct ReactionTradeAlgorithmParams: TradeParams {
@@ -84,14 +84,18 @@ struct GridSearchGrainFirstsResponse {
 }
 
 struct AlertError: Error {
-    let title: String
-    let message: String
+    var title: String
+    var message: String
+}
+
+struct AlertWarning {
+    var title: String
 }
 
 // requests
 struct ApprovedTradeGrain {
     let key: TradeGrainKey
-    let tradeParam: Any
+    let tradeParams: Any
 }
 
 struct ApprovedTradeGrainsRequest {

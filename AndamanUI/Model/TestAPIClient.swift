@@ -61,4 +61,9 @@ class TestAPIClient: API {
         
         return GridSearchGrainFirstsResponse(firsts: firsts)
     }
+    
+    func approveTradeGrains(grains: [ApprovedTradeGrain]) throws -> SuccessResponse {
+        sleep(1)
+        return SuccessResponse(message: "approved")
+    }
 }

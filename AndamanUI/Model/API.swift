@@ -11,6 +11,8 @@ protocol API {
     func gridSearchGrain(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) throws -> GridSearchGrainResponse
     
     func gridSearchGrainFirsts() throws -> GridSearchGrainFirstsResponse
+    
+    func approveTradeGrains(grains: [ApprovedTradeGrain]) throws -> SuccessResponse
 }
 
 struct APIError: Error, Identifiable {

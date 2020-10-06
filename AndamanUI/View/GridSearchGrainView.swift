@@ -10,7 +10,9 @@ import Combine
 
 struct GridSearchGrainView: View {
     @ObservedObject var model: GridSearchGrainViewModel = GridSearchGrainViewModel()
+    
     @State var sheetView: TradeSummaryView?
+    @State var alertView: Alert?
     
     let pair: TradePair
     let timezone: Timezone
@@ -76,13 +78,6 @@ struct GridSearchGrainView: View {
         }
     }
     
-    var errorView: some View {
-        VStack {
-            Text(String(self.model.error!.statusCode))
-            Text(self.model.error!.message)
-        }
-    }
-    
     var fetchView: some View {
         Text("fetching...")
     }
@@ -96,14 +91,21 @@ struct GridSearchGrainView: View {
         }
     }
     
+    private func errorHandler(_ error: Error) {
+        guard let _error = error as? APIError else {
+            print(error)
+            return
+        }
+        
+        self.alertView = Alert(title: Text(_error.statusCode.asTradeResult), message: Text(_error.message))
+    }
+    
     var body: some View {
         content.onAppear {
-            self.model.fetch(pair: pair, timezone: timezone, direction: direction, algorithm: algorithm)
+            self.model.fetch(pair: pair, timezone: timezone, direction: direction, algorithm: algorithm, errorHandler: errorHandler)
         }
         .sheet(item: self.$sheetView) { $0 }
-        .alert(item: self.$model.error) {
-            Alert(title: Text($0.statusCode.asTradeResult), message: Text($0.message))
-        }
+        .alert(item: self.$alertView) { $0 }
     }
 }
 

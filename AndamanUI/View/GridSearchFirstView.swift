@@ -104,21 +104,25 @@ struct GridSearchFirstView: View {
         }
     }
     
+    private func errorHandler(_ error: Error) {
+        guard let _error = error as? APIError else {
+            print(error)
+            return
+        }
+        
+        self.alertView = Alert(title: Text(_error.statusCode.asTradeResult), message: Text(_error.message))
+    }
+    
     var body: some View {
         VStack {
             HStack(spacing: 10) {
                 Text("Approve").foregroundColor(.green)
-                Button(action: { self.model.refresh() }) {
+                Button(action: { self.model.refresh(errorHandler) }) {
                     Text("Refresh").foregroundColor(.blue)
                 }
             }
-            .alert(item: self.$model.error) {
-                Alert(title: Text($0.statusCode.asTradeResult), message: Text($0.message))
-            }
             
-            content.onAppear {
-                self.model.fetch()
-            }
+            content.onAppear { self.model.fetch(errorHandler) }
             .sheet(item: self.$sheetView) { $0 }
             .alert(item: self.$alertView) { $0 }
         }

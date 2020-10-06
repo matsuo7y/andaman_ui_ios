@@ -13,7 +13,8 @@ class GridSearchFirstViewModel: ObservableObject {
     private let api = TestAPIClient.shared
     
     @Published var firstsDict: [GridSearchGrainKey: GridSearchGrainFirstValue]?
-    @Published var error: APIError?
+    
+    var approvedTradeGrains: [ApprovedTradeGrain]?
     
     var keys: [GridSearchGrainKey] {
         var keys: [GridSearchGrainKey] = []
@@ -50,7 +51,7 @@ class GridSearchFirstViewModel: ObservableObject {
         return firsts
     }
     
-    func fetch() {
+    func fetch(_ errorHandler: @escaping (Error) -> ()) {
         Promise<GridSearchGrainFirstsResponse>(on: .global()) { fulfill, reject in
             do {
                 fulfill(try self.api.gridSearchGrainFirsts())
@@ -63,34 +64,27 @@ class GridSearchFirstViewModel: ObservableObject {
                 fulfill(self.makeFirstsDict(resp.firsts))
             }
         }
-        .then { firsts in
-            self.firstsDict = firsts
-        }
-        .catch { error in
-            if let _error = error as? APIError {
-                self.error = _error
-            } else {
-                print(error)
-            }
-        }
+        .then { self.firstsDict = $0 }
+        .catch { errorHandler($0) }
     }
     
-    func refresh() {
+    func refresh(_ errorHandler: @escaping (Error) -> ()) {
         self.firstsDict = nil
-        self.error = nil
-        self.fetch()
+        self.fetch(errorHandler)
     }
     
     func adopt(key: GridSearchGrainKey, index: Int) -> AlertError? {
-        if var value = self.firstsDict![key] {
-            if value.firsts[index].tradeSummary.realizedProfit > 0 {
-                value.selected[index] = true
-                self.firstsDict![key] = value
-                return nil
-            }
-            return AlertError(title: "Adopt Error", message: "realized profit should be positive")
+        guard var value = self.firstsDict![key] else {
+            return AlertError(title: "Adopt Error", message: "no key")
         }
-        return AlertError(title: "Adopt Error", message: "no key")
+        
+        if value.firsts[index].tradeSummary.realizedProfit > 0 {
+            value.selected[index] = true
+            self.firstsDict![key] = value
+            return nil
+        }
+        
+        return AlertError(title: "Adopt Error", message: "realized profit should be positive")
     }
     
     func dismiss(key: GridSearchGrainKey, index: Int) {
@@ -98,6 +92,49 @@ class GridSearchFirstViewModel: ObservableObject {
             value.selected[index] = false
             self.firstsDict![key] = value
         }
+    }
+    
+    func beforeApprove(successHandler: @escaping (AlertWarning) -> (), errorHandler: @escaping (AlertError) -> ()) {
+        Promise<AlertWarning>(on: .global()) { fulfill, reject in
+            guard let firstsDict = self.firstsDict else {
+                reject(AlertError(title: "Approve", message: "refresh before approve"))
+                return
+            }
+            
+            var grains: [ApprovedTradeGrain] = []
+            
+            for (_, value) in firstsDict {
+                for (i, first) in value.firsts.enumerated() {
+                    if value.selected[i] {
+                        let key = TradeGrainKey(
+                            tradePair: first.key.tradePair,
+                            timezone: first.key.timezone,
+                            tradeDirection: first.key.tradeDirection,
+                            tradeAlgorithm: first.key.tradeAlgorithm
+                        )
+                        
+                        grains.append(ApprovedTradeGrain(key: key, tradeParams: first.tradeSummary.tradeParams))
+                    }
+                }
+            }
+            self.approvedTradeGrains = grains
+            
+            fulfill(AlertWarning(title: "Really approve?"))
+        }
+        .then { successHandler($0) }
+        .catch { errorHandler($0 as! AlertError) }
+     }
+    
+    func approve(successHandler: @escaping (SuccessResponse) -> (), errorHandler: @escaping (Error) -> ()) {
+        Promise<SuccessResponse>(on: .global()) { fulfill, reject in
+            do {
+                fulfill(try self.api.approveTradeGrains(grains: self.approvedTradeGrains!))
+            } catch(let error) {
+                reject(error)
+            }
+        }
+        .then { successHandler($0) }
+        .catch { errorHandler($0) }
     }
 }
 
