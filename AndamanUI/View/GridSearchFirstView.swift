@@ -16,7 +16,7 @@ struct GridSearchFirstView: View {
     
     @ViewBuilder
     private func cardView(_ key: GridSearchGrainKey) -> some View {
-        if let value = self.model.grains![key] {
+        if let value = self.model.firsts![key] {
             VStack {
                 Text("\(key.tradePair.asTradeParam):\(key.timezone.asTradeParam):\(key.direction.asTradeParam)")
                     .font(.headline)
@@ -27,10 +27,10 @@ struct GridSearchFirstView: View {
                     .padding(.leading, 10)
                     
                 
-                ForEach(0..<value.grains.count) {
+                ForEach(0..<value.firsts.count) {
                     let i = $0
-                    let grain = value.grains[i]
-                    let tradeSummary = grain.tradeSummaries[0]
+                    let first = value.firsts[i]
+                    let tradeSummary = first.tradeSummary
                     let background = i == value.selected ? Color.green.opacity(0.15) : Color.red.opacity(0.15)
                     
                     HStack {
@@ -39,7 +39,7 @@ struct GridSearchFirstView: View {
                             Text(tradeSummary.tradeAlgorithm.asTradeResult)
                             
                             Text("Positive").foregroundColor(.blue)
-                            Text(grain.positiveProportions.asTradeResult)
+                            Text(first.positiveProportions.asTradeResult)
                             
                             Text("Realized Profit").foregroundColor(.blue)
                             Text(tradeSummary.realizedProfit.asTradeResult)
@@ -97,7 +97,7 @@ struct GridSearchFirstView: View {
     
     @ViewBuilder
     var content: some View {
-        if self.model.grains !=  nil {
+        if self.model.firsts !=  nil {
             successView
         } else {
             fetchView

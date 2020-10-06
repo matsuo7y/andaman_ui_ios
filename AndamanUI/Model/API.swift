@@ -10,7 +10,7 @@ import Foundation
 protocol API {
     func gridSearchGrain(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) throws -> GridSearchGrainResponse
     
-    func firstGridSearchGrains() throws -> GridSearchGrainsResponse
+    func gridSearchGrainFirsts() throws -> GridSearchGrainFirstsResponse
 }
 
 struct APIError: Error, Identifiable {

@@ -28,10 +28,10 @@ class TestAPIClient: API {
        return GridSearchGrainResponse(grain: grain)
     }
     
-    func firstGridSearchGrains() throws -> GridSearchGrainsResponse {
+    func gridSearchGrainFirsts() throws -> GridSearchGrainFirstsResponse {
         sleep(1)
         
-        var grains: [GridSearchGrain] = []
+        var firsts: [GridSearchGrainFirst] = []
         
         for pair in TradePair.allCases {
             for timezone in Timezone.allCases {
@@ -39,20 +39,20 @@ class TestAPIClient: API {
                     for algorithm in TradeAlgorithm.allCases {
                         let tradeSummary = testTradeSummaries[direction]![algorithm]!
                         
-                        let grain = GridSearchGrain(
+                        let first = GridSearchGrainFirst(
                             tradePair: pair,
                             timezone: timezone,
                             tradeDirection: direction,
                             positiveProportions: 64.0,
-                            tradeSummaries: [tradeSummary]
+                            tradeSummary: tradeSummary
                         )
                         
-                        grains.append(grain)
+                        firsts.append(first)
                     }
                 }
             }
         }
         
-        return GridSearchGrainsResponse(grains: grains)
+        return GridSearchGrainFirstsResponse(firsts: firsts)
     }
 }

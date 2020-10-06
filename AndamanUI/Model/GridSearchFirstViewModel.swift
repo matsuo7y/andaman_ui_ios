@@ -12,7 +12,7 @@ import Promises
 class GridSearchFirstViewModel: ObservableObject {
     private let api = TestAPIClient.shared
     
-    @Published var grains: [GridSearchGrainKey: GridSearchGrainValue]?
+    @Published var firsts: [GridSearchGrainKey: GridSearchGrainFirstValue]?
     @Published var error: APIError?
     
     var keys: [GridSearchGrainKey] {
@@ -27,49 +27,49 @@ class GridSearchFirstViewModel: ObservableObject {
         return keys
     }
     
-    func makeGrains(_ flatGrains: [GridSearchGrain]) -> [GridSearchGrainKey: GridSearchGrainValue] {
-        var grains: [GridSearchGrainKey: GridSearchGrainValue] = [:]
+    func makeFirsts(_ flatFirsts: [GridSearchGrainFirst]) -> [GridSearchGrainKey: GridSearchGrainFirstValue] {
+        var firsts: [GridSearchGrainKey: GridSearchGrainFirstValue] = [:]
         
-        for grain in flatGrains {
-            let key = GridSearchGrainKey(tradePair: grain.tradePair, timezone: grain.timezone, direction: grain.tradeDirection)
-            let realizedProfit = grain.tradeSummaries[0].realizedProfit
+        for first in flatFirsts {
+            let key = GridSearchGrainKey(tradePair: first.tradePair, timezone: first.timezone, direction: first.tradeDirection)
+            let realizedProfit = first.tradeSummary.realizedProfit
             
-            if var value = grains[key] {
+            if var value = firsts[key] {
                 if value.maxRealizedProfit < realizedProfit && realizedProfit > 0 {
                     value.maxRealizedProfit = realizedProfit
-                    value.selected = value.grains.count
+                    value.selected = value.firsts.count
                 }
                 
-                value.grains.append(grain)
-                grains[key] = value
+                value.firsts.append(first)
+                firsts[key] = value
             } else {
                 var selected = -1
                 if realizedProfit > 0 {
                     selected = 0
                 }
                 
-                grains[key] = GridSearchGrainValue(grains: [grain], maxRealizedProfit: realizedProfit, selected: selected)
+                firsts[key] = GridSearchGrainFirstValue(firsts: [first], maxRealizedProfit: realizedProfit, selected: selected)
             }
         }
         
-        return grains
+        return firsts
     }
     
     func fetch() {
-        Promise<GridSearchGrainsResponse>(on: .global()) { fulfill, reject in
+        Promise<GridSearchGrainFirstsResponse>(on: .global()) { fulfill, reject in
             do {
-                fulfill(try self.api.firstGridSearchGrains())
+                fulfill(try self.api.gridSearchGrainFirsts())
             } catch(let error) {
                 reject(error)
             }
         }
         .then(on: .global()) { resp in
-            Promise<[GridSearchGrainKey: GridSearchGrainValue]> { fulfill, _ in
-                fulfill(self.makeGrains(resp.grains))
+            Promise<[GridSearchGrainKey: GridSearchGrainFirstValue]> { fulfill, _ in
+                fulfill(self.makeFirsts(resp.firsts))
             }
         }
-        .then { grains in
-            self.grains = grains
+        .then { firsts in
+            self.firsts = firsts
         }
         .catch { error in
             if let _error = error as? APIError {
@@ -81,16 +81,16 @@ class GridSearchFirstViewModel: ObservableObject {
     }
     
     func refresh() {
-        self.grains = nil
+        self.firsts = nil
         self.error = nil
         self.fetch()
     }
     
     func adopt(key: GridSearchGrainKey, selected: Int) -> AlertError? {
-        if var value = self.grains![key] {
-            if value.grains[selected].tradeSummaries[0].realizedProfit > 0 {
+        if var value = self.firsts![key] {
+            if value.firsts[selected].tradeSummary.realizedProfit > 0 {
                 value.selected = selected
-                self.grains![key] = value
+                self.firsts![key] = value
                 return nil
             }
             return AlertError(title: "Adopt Error", message: "realized profit should be positive")
@@ -99,9 +99,9 @@ class GridSearchFirstViewModel: ObservableObject {
     }
     
     func dismiss(key: GridSearchGrainKey) {
-        if var value = self.grains![key] {
+        if var value = self.firsts![key] {
             value.selected = -1
-            self.grains![key] = value
+            self.firsts![key] = value
         }
     }
 }
@@ -112,8 +112,8 @@ struct GridSearchGrainKey: Hashable {
     var direction: TradeDirection
 }
 
-struct GridSearchGrainValue {
-    var grains: [GridSearchGrain]
+struct GridSearchGrainFirstValue {
+    var firsts: [GridSearchGrainFirst]
     var maxRealizedProfit: Float
     var selected: Int
 }

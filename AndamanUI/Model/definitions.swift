@@ -64,12 +64,20 @@ struct GridSearchGrain {
     let tradeSummaries: [TradeSummary]
 }
 
+struct GridSearchGrainFirst {
+    let tradePair: TradePair
+    let timezone: Timezone
+    let tradeDirection: TradeDirection
+    let positiveProportions: Float
+    let tradeSummary: TradeSummary
+}
+
 struct GridSearchGrainResponse {
     let grain: GridSearchGrain
 }
 
-struct GridSearchGrainsResponse {
-    let grains: [GridSearchGrain]
+struct GridSearchGrainFirstsResponse {
+    let firsts: [GridSearchGrainFirst]
 }
 
 struct AlertError: Error {
