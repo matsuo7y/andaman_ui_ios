@@ -64,6 +64,6 @@ class TestAPIClient: API {
     
     func approveTradeGrains(grains: [ApprovedTradeGrain]) throws -> SuccessResponse {
         sleep(1)
-        return SuccessResponse(message: "approved")
+        return SuccessResponse(message: "Approved")
     }
 }

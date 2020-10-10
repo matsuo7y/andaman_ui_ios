@@ -96,14 +96,22 @@ class GridSearchFirstViewModel: ObservableObject {
     
     func beforeApprove(successHandler: @escaping (AlertWarning) -> (), errorHandler: @escaping (AlertError) -> ()) {
         Promise<AlertWarning>(on: .global()) { fulfill, reject in
-            guard let firstsDict = self.firstsDict else {
+            guard self.firstsDict != nil else {
                 reject(AlertError(title: "Approve", message: "refresh before approve"))
                 return
             }
             
+            fulfill(AlertWarning(title: "Really approve?"))
+        }
+        .then { successHandler($0) }
+        .catch { errorHandler($0 as! AlertError) }
+     }
+    
+    func approve(successHandler: @escaping (SuccessResponse) -> (), errorHandler: @escaping (Error) -> ()) {
+        Promise<SuccessResponse>(on: .global()) { fulfill, reject in
             var grains: [ApprovedTradeGrain] = []
             
-            for (_, value) in firstsDict {
+            for (_, value) in self.firstsDict! {
                 for (i, first) in value.firsts.enumerated() {
                     if value.selected[i] {
                         let key = TradeGrainKey(
@@ -117,18 +125,9 @@ class GridSearchFirstViewModel: ObservableObject {
                     }
                 }
             }
-            self.approvedTradeGrains = grains
             
-            fulfill(AlertWarning(title: "Really approve?"))
-        }
-        .then { successHandler($0) }
-        .catch { errorHandler($0 as! AlertError) }
-     }
-    
-    func approve(successHandler: @escaping (SuccessResponse) -> (), errorHandler: @escaping (Error) -> ()) {
-        Promise<SuccessResponse>(on: .global()) { fulfill, reject in
             do {
-                fulfill(try self.api.approveTradeGrains(grains: self.approvedTradeGrains!))
+                fulfill(try self.api.approveTradeGrains(grains: grains))
             } catch(let error) {
                 reject(error)
             }

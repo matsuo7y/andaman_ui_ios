@@ -104,19 +104,39 @@ struct GridSearchFirstView: View {
         }
     }
     
+    private func beforeApproveSuccessHandler(warning: AlertWarning) {
+        self.alertView = Alert(
+            title: Text(warning.title),
+            primaryButton: .destructive(
+                Text("OK"),
+                action: { self.model.approve(successHandler: approveSuccessHandler, errorHandler: errorHandler) }
+            ),
+            secondaryButton: .cancel()
+        )
+    }
+    
+    private func approveSuccessHandler(resp: SuccessResponse) {
+        self.alertView = Alert(title: Text(resp.message))
+    }
+    
     private func errorHandler(_ error: Error) {
-        guard let _error = error as? APIError else {
+        switch error {
+        case let apiError as APIError:
+            self.alertView = Alert(title: Text(apiError.statusCode.asTradeResult), message: Text(apiError.message))
+        case let alertError as AlertError:
+            self.alertView = Alert(title: Text(alertError.title), message: Text(alertError.message))
+        default:
             print(error)
-            return
         }
-        
-        self.alertView = Alert(title: Text(_error.statusCode.asTradeResult), message: Text(_error.message))
     }
     
     var body: some View {
         VStack {
             HStack(spacing: 10) {
-                Text("Approve").foregroundColor(.green)
+                Button(action: { self.model.beforeApprove(successHandler: beforeApproveSuccessHandler, errorHandler: errorHandler) }) {
+                    Text("Approve").foregroundColor(.green)
+                }
+                
                 Button(action: { self.model.refresh(errorHandler) }) {
                     Text("Refresh").foregroundColor(.blue)
                 }
