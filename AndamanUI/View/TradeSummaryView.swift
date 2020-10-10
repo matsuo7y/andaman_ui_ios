@@ -15,8 +15,7 @@ struct TradeSummaryView: View, Identifiable {
     private func paramsView(_ params: Any) -> some View {
         if let _params = params as? TradeParams {
             LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
-                ForEach(0..<_params.keyValues.count) {
-                    let param = _params.keyValues[$0]
+                ForEach(_params.params) { param in
                     Text(param.key).foregroundColor(.red)
                     Text(param.value)
                 }
