@@ -79,7 +79,7 @@ struct GridSearchGrainView: View {
     }
     
     var fetchView: some View {
-        Text("fetching...")
+        Text("fetching...").fontWeight(.bold)
     }
     
     @ViewBuilder

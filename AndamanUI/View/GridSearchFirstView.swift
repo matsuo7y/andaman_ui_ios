@@ -90,7 +90,7 @@ struct GridSearchFirstView: View {
     var fetchView: some View {
         VStack {
             Spacer()
-            Text("fetching...")
+            Text("fetching...").fontWeight(.bold)
             Spacer()
         }
     }
