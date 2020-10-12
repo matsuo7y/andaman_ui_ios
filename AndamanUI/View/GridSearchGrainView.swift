@@ -108,15 +108,3 @@ struct GridSearchGrainView: View {
         .alert(item: self.$alertView) { $0 }
     }
 }
-
-struct GridSearchGrainView_Previews: PreviewProvider {
-    static var previews: some View {
-        GridSearchGrainView(
-            pair: TradePair.GbpUsd,
-            timezone: Timezone.tokyoAM,
-            direction: TradeDirection.long,
-            algorithm: TradeAlgorithm.reaction
-        )
-    }
-}
-

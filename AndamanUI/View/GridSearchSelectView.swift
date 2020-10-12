@@ -45,9 +45,3 @@ struct GridSearchSelectView: View {
         }
     }
 }
-
-struct GridSearchSelectView_Previews: PreviewProvider {
-    static var previews: some View {
-        GridSearchSelectView()
-    }
-}

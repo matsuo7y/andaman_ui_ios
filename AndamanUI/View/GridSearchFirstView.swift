@@ -149,9 +149,3 @@ struct GridSearchFirstView: View {
         .frame(maxHeight: .infinity, alignment: .top)
     }
 }
-
-struct GridSearchFirstView_Previews: PreviewProvider {
-    static var previews: some View {
-        GridSearchFirstView()
-    }
-}

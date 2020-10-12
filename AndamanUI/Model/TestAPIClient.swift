@@ -74,8 +74,9 @@ class TestAPIClient: API {
         
         pollCount += 1
         
-        let count1 = pollCount % 4
-        let count2 = (pollCount + 4) % 4
+        let count = testTradeCounts.count
+        let count1 = pollCount % count
+        let count2 = (pollCount + 4) % count
         
         var statuses: [TradeGrainStatus] = []
         
@@ -89,8 +90,8 @@ class TestAPIClient: API {
                         statuses.append(
                             TradeGrainStatus(
                                 key: key,
-                                open: testTradeCounts[(count1 + i) % 4],
-                                closed: testTradeCounts[(count2 + i) % 4]
+                                open: testTradeCounts[(count1 + i) % count],
+                                closed: testTradeCounts[(count2 + i) % count]
                             )
                         )
                         
@@ -116,8 +117,7 @@ class TestAPIClient: API {
         sleep(1)
         
         pollCount += 1
-        let count = pollCount % 8
-        let orders = Array(repeating: testOpenOrder, count: count)
+        let orders = (0..<5).map { testOpenOrders[ (pollCount + $0) % testOpenOrders.count ]}
         
         return OpenOrdersResponse(orders: orders)
     }

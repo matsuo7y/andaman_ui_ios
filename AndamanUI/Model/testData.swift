@@ -129,6 +129,12 @@ var testProfits: [Float] = [
     136.3478
 ]
 
-var testOpenOrder = Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1600939486, priceAtOpen: 1.2372, timeAtClose: nil, priceAtClose: nil, profit: 3.6)
+var testOpenOrders = [
+    Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1600939486, priceAtOpen: 1.2372, timeAtClose: nil, priceAtClose: nil, profit: 3.6),
+    Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1596365014, priceAtOpen: 1.5467, timeAtClose: nil, priceAtClose: nil, profit: 4.5),
+    Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1604356572, priceAtOpen: 1.1937, timeAtClose: nil, priceAtClose: nil, profit: 22.8),
+    Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1601813284, priceAtOpen: 1.7498, timeAtClose: nil, priceAtClose: nil, profit: 15.5),
+    Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1609445384, priceAtOpen: 1.3367, timeAtClose: nil, priceAtClose: nil, profit: 8.2),
+]
 
 var testClosedOrder = Order(tradePair: TradePair.UsdJpy, units: 1000.0, timeAtOpen: 1602484464, priceAtOpen: 105.356, timeAtClose: 1602486772, priceAtClose: 105.783, profit: 23.5)

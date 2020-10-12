@@ -63,7 +63,7 @@ struct TradeSummary {
     let tradeParams: Any
 }
 
-struct TradeGrainKey {
+struct TradeGrainKey: Hashable {
     let tradePair: TradePair
     let timezone: Timezone
     let tradeDirection: TradeDirection
@@ -83,18 +83,18 @@ struct GridSearchGrainFirst {
 }
 
 // Definitions for Trade
-struct TradeGrainStatus {
+struct TradeGrainStatus: Hashable {
     let key: TradeGrainKey
     let open: TradeCount
     let closed: TradeCount
 }
 
-struct TradeCount {
+struct TradeCount: Hashable {
     let count: Int
     let profit: Float
 }
 
-struct Order {
+struct Order: Hashable {
     let tradePair: TradePair
     let units: Float
     let timeAtOpen: Int
