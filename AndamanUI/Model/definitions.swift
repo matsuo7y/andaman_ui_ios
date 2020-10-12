@@ -7,11 +7,17 @@
 
 import Foundation
 
-// Response
-struct SuccessResponse {
-    let message: String
+// Internal
+struct AlertError: Error {
+    var title: String
+    var message: String
 }
 
+struct AlertWarning {
+    var title: String
+}
+
+// Definitions for Grid Search
 struct ReactionTradeAlgorithmParams: TradeParams {
     let tradeDirectionLong: Bool
     
@@ -76,6 +82,35 @@ struct GridSearchGrainFirst {
     let tradeSummary: TradeSummary
 }
 
+// Definitions for Trade
+struct TradeGrainStatus {
+    let key: TradeGrainKey
+    let open: TradeCount
+    let close: TradeCount
+}
+
+struct TradeCount {
+    let count: Int
+    let profit: Float
+}
+
+struct Order {
+    let tradePair: TradePair
+    let units: Float
+    let timeAtOpen: Int
+    let priceAtOpen: Float
+    let timeAtClose: Int?
+    let priceAtClose: Float?
+    let profit: Float
+}
+
+struct OffsetPafing {
+    let all: Int
+    let count: Int
+    let offset: Int
+}
+
+// Response for Grid Search
 struct GridSearchGrainResponse {
     let grain: GridSearchGrain
 }
@@ -84,16 +119,33 @@ struct GridSearchGrainFirstsResponse {
     let firsts: [GridSearchGrainFirst]
 }
 
-struct AlertError: Error {
-    var title: String
-    var message: String
+// Response for Trade
+struct TradeGrainStatusesResponse {
+    let unrealizedProfit: Float
+    let realizedProfit: Float
+    let statuses: [TradeGrainStatus]
 }
 
-struct AlertWarning {
-    var title: String
+struct TradeGrainParamResponse {
+    let key: TradeGrainKey
+    let param: Any
 }
 
-// requests
+struct OpenOrdersResponse {
+    let orders: [Order]
+}
+
+struct CloseOrdersResponse {
+    let orders: [Order]
+    let paging: OffsetPafing
+}
+
+// Response for General
+struct SuccessResponse {
+    let message: String
+}
+
+// Requests
 struct ApprovedTradeGrain {
     let key: TradeGrainKey
     let tradeParams: Any
