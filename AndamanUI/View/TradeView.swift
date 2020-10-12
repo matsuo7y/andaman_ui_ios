@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct TradeView: View {
+    @State var timezoneSelected = Timezone.tokyoAM
+    @State var periodSelected = Period.d1
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            Form {
+                Picker(selection: $timezoneSelected, label: Text("Timezone")) {
+                    ForEach(Timezone.allCases, id: \.self) { Text($0.display) }
+                }
+                
+                Picker(selection: $periodSelected, label: Text("Period")) {
+                    ForEach(Period.allCases, id: \.self) { Text($0.display) }
+                }
+                
+                NavigationLink(destination: Text("hello")) {
+                    Text("Select")
+                }
+            }
+            .navigationTitle(Text("Trade"))
+        }
     }
 }
 
