@@ -106,3 +106,29 @@ let testTradeSummaries = [
         TradeAlgorithm.breaking: breakTradeSummary1
     ]
 ]
+
+let testTradeCounts = [
+    TradeCount(count: 0, profit: -12.0),
+    TradeCount(count: 5, profit: -6.0),
+    TradeCount(count: 7, profit: -1.102),
+    TradeCount(count: 9, profit: 1.467),
+    TradeCount(count: 13, profit: 3.98),
+    TradeCount(count: 24, profit: 8.0963),
+    TradeCount(count: 13, profit: 78.2434),
+    TradeCount(count: 89, profit: 126.3464)
+]
+
+var testProfits: [Float] = [
+    34.2,
+    -12.4765,
+    472.1256,
+    -124.679,
+    25.39,
+    98.736,
+    -46.87,
+    136.3478
+]
+
+var testOpenOrder = Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1600939486, priceAtOpen: 1.2372, timeAtClose: nil, priceAtClose: nil, profit: 3.6)
+
+var testClosedOrder = Order(tradePair: TradePair.UsdJpy, units: 1000.0, timeAtOpen: 1602484464, priceAtOpen: 105.356, timeAtClose: 1602486772, priceAtClose: 105.783, profit: 23.5)

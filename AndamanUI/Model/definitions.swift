@@ -86,7 +86,7 @@ struct GridSearchGrainFirst {
 struct TradeGrainStatus {
     let key: TradeGrainKey
     let open: TradeCount
-    let close: TradeCount
+    let closed: TradeCount
 }
 
 struct TradeCount {
@@ -126,16 +126,16 @@ struct TradeGrainStatusesResponse {
     let statuses: [TradeGrainStatus]
 }
 
-struct TradeGrainParamResponse {
+struct TradeGrainParamsResponse {
     let key: TradeGrainKey
-    let param: Any
+    let params: Any
 }
 
 struct OpenOrdersResponse {
     let orders: [Order]
 }
 
-struct CloseOrdersResponse {
+struct ClosedOrdersResponse {
     let orders: [Order]
     let paging: OffsetPafing
 }
