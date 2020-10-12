@@ -8,8 +8,7 @@
 import Foundation
 
 protocol Displayable {
-    var asTradeParam: String { get }
-    var asTradeResult: String { get }
+    var display: String { get }
 }
 
 protocol TradeParams {
@@ -25,7 +24,7 @@ extension TradeParams {
             
             switch member.value {
             case let value as Displayable:
-                kvs.append(TradeParam(key: key, value: value.asTradeParam))
+                kvs.append(TradeParam(key: key, value: value.display))
             default:
                 kvs.append(TradeParam(key: key, value: "not displayable"))
             }

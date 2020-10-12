@@ -31,19 +31,19 @@ struct GridSearchGrainView: View {
             let grain = self.model.grain!
             
             Text("Trade Pair").foregroundColor(.blue)
-            Text(grain.key.tradePair.asTradeParam)
+            Text(grain.key.tradePair.display)
             
             Text("Timezone").foregroundColor(.blue)
-            Text(grain.key.timezone.asTradeParam)
+            Text(grain.key.timezone.display)
             
             Text("Direction").foregroundColor(.blue)
-            Text(grain.key.tradeDirection.asTradeParam)
+            Text(grain.key.tradeDirection.display)
             
             Text("Algorithm").foregroundColor(.blue)
-            Text(grain.key.tradeAlgorithm.asTradeParam)
+            Text(grain.key.tradeAlgorithm.display)
             
             Text("Positive").foregroundColor(.blue)
-            Text(grain.positiveProportions.asTradeResult).foregroundColor(.green).bold()
+            Text(grain.positiveProportions.display()).foregroundColor(.green).bold()
         }
         .padding()
     }
@@ -59,8 +59,8 @@ struct GridSearchGrainView: View {
                 ForEach(0..<grain.tradeSummaries.count) {
                     let tradeSummary = grain.tradeSummaries[$0]
                     
-                    Text(tradeSummary.realizedProfit.asTradeResult)
-                    Text(tradeSummary.tradeCount.asTradeResult)
+                    Text(tradeSummary.realizedProfit.display())
+                    Text(tradeSummary.tradeCount.display)
                     Button(action: { self.sheetView = TradeSummaryView(tradeSummary: tradeSummary) }) {
                         Text("Detail").foregroundColor(.blue)
                     }
@@ -97,7 +97,7 @@ struct GridSearchGrainView: View {
             return
         }
         
-        self.alertView = Alert(title: Text(_error.statusCode.asTradeResult), message: Text(_error.message))
+        self.alertView = Alert(title: Text(_error.statusCode.display), message: Text(_error.message))
     }
     
     var body: some View {

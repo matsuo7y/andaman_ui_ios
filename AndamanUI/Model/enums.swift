@@ -18,7 +18,7 @@ enum TradePair: Int, CaseIterable, Displayable {
     case AudUsd
     case AudJpy
     
-    var asTradeParam: String {
+    var display: String {
         switch self {
         case .GbpUsd:
             return "GBP/USD"
@@ -40,10 +40,6 @@ enum TradePair: Int, CaseIterable, Displayable {
             return "AUD/JPY"
         }
     }
-    
-    var asTradeResult: String {
-        asTradeParam
-    }
 }
 
 enum Timezone: Int, CaseIterable, Displayable {
@@ -54,7 +50,7 @@ enum Timezone: Int, CaseIterable, Displayable {
     case newyorkAM
     case newyorkPM
     
-    var asTradeParam: String {
+    var display: String {
         switch self {
         case .tokyoAM:
             return "Tokyo AM"
@@ -70,17 +66,13 @@ enum Timezone: Int, CaseIterable, Displayable {
             return "NewYork PM"
         }
     }
-    
-    var asTradeResult: String {
-        asTradeParam
-    }
 }
 
 enum TradeAlgorithm: Int, CaseIterable, Displayable {
     case reaction
     case breaking
     
-    var asTradeParam: String {
+    var display: String {
         switch self {
         case .reaction:
             return "Reaction"
@@ -88,17 +80,13 @@ enum TradeAlgorithm: Int, CaseIterable, Displayable {
             return "Break"
         }
     }
-    
-    var asTradeResult: String {
-        return asTradeParam
-    }
 }
 
 enum TradeDirection: Int, CaseIterable, Displayable {
     case long
     case short
     
-    var asTradeParam: String {
+    var display: String {
         switch self {
         case .long:
             return "Long"
@@ -106,8 +94,30 @@ enum TradeDirection: Int, CaseIterable, Displayable {
             return "Short"
         }
     }
+}
+
+enum Period: Int, CaseIterable, Displayable {
+    case d1
+    case d7
+    case d30
+    case d90
+    case d120
+    case d360
     
-    var asTradeResult: String {
-        asTradeParam
+    var display: String {
+        switch self {
+        case .d1:
+            return "1 day"
+        case .d7:
+            return "7 days"
+        case .d30:
+            return "30 days"
+        case .d90:
+            return "90 days"
+        case .d120:
+            return "120 days"
+        case .d360:
+            return "360 days"
+        }
     }
 }

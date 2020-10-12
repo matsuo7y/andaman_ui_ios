@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Response
 struct SuccessResponse {
     let message: String
 }

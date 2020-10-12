@@ -9,32 +9,24 @@ import Foundation
 import SwiftUI
 
 extension Int: Displayable {
-    var asTradeParam: String {
+    var display: String {
         NSString(format: "%d", self) as String
-    }
-    
-    var asTradeResult: String {
-        asTradeParam
     }
 }
 
 extension Float: Displayable {
-    var asTradeParam: String {
+    var display: String {
         NSString(format: NSString(string: "%.1f"), self) as String
     }
     
-    var asTradeResult: String {
+    func display(_ digits: Int=4) -> String {
         NSString(format: NSString(string: "%.4f"), self) as String
     }
 }
 
 extension Bool: Displayable {
-    var asTradeParam: String {
+    var display: String {
         String(self)
-    }
-    
-    var asTradeResult: String {
-        asTradeParam
     }
 }
 

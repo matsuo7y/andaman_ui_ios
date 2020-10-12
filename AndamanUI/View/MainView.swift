@@ -12,21 +12,29 @@ struct MainView: View {
     
     var body: some View {
         TabView(selection: $currentTab) {
-            GridSearchSelectView()
+            TradeView()
                 .tabItem {
-                    Text("GS Select")
+                    Text("Trade")
                 }
                 .tag(0)
                 .onAppear {
                     self.currentTab = 0
                 }
-            GridSearchFirstView()
+            GridSearchSelectView()
                 .tabItem {
-                    Text("GS First")
+                    Text("GS Select")
                 }
                 .tag(1)
                 .onAppear {
                     self.currentTab = 1
+                }
+            GridSearchFirstView()
+                .tabItem {
+                    Text("GS First")
+                }
+                .tag(2)
+                .onAppear {
+                    self.currentTab = 2
                 }
         }
     }

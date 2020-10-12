@@ -18,7 +18,7 @@ struct GridSearchFirstView: View {
     private func cardView(_ key: GridSearchGrainKey) -> some View {
         if let value = self.model.firstsDict![key] {
             VStack {
-                Text("\(key.tradePair.asTradeParam):\(key.timezone.asTradeParam):\(key.direction.asTradeParam)")
+                Text("\(key.tradePair.display):\(key.timezone.display):\(key.direction.display)")
                     .font(.headline)
                     .fontWeight(.bold)
                     .background(Color.secondary)
@@ -36,16 +36,16 @@ struct GridSearchFirstView: View {
                     HStack {
                         LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
                             Text("Algorithm").foregroundColor(.blue)
-                            Text(first.key.tradeAlgorithm.asTradeResult)
+                            Text(first.key.tradeAlgorithm.display)
                             
                             Text("Positive").foregroundColor(.blue)
-                            Text(first.positiveProportions.asTradeResult)
+                            Text(first.positiveProportions.display())
                             
                             Text("Realized Profit").foregroundColor(.blue)
-                            Text(tradeSummary.realizedProfit.asTradeResult)
+                            Text(tradeSummary.realizedProfit.display())
                             
                             Text("Trade Count").foregroundColor(.blue)
-                            Text(tradeSummary.tradeCount.asTradeResult)
+                            Text(tradeSummary.tradeCount.display)
                         }
                         .background(background)
                         .frame(width: 280)
@@ -122,7 +122,7 @@ struct GridSearchFirstView: View {
     private func errorHandler(_ error: Error) {
         switch error {
         case let apiError as APIError:
-            self.alertView = Alert(title: Text(apiError.statusCode.asTradeResult), message: Text(apiError.message))
+            self.alertView = Alert(title: Text(apiError.statusCode.display), message: Text(apiError.message))
         case let alertError as AlertError:
             self.alertView = Alert(title: Text(alertError.title), message: Text(alertError.message))
         default:
