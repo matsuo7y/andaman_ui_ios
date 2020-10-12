@@ -13,6 +13,8 @@
 		9A45AD59252B009A0062D5D6 /* Promises in Frameworks */ = {isa = PBXBuildFile; productRef = 9A45AD58252B009A0062D5D6 /* Promises */; };
 		9A4F67AA2533DA0F008F78A5 /* TradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F67A92533DA0F008F78A5 /* TradeView.swift */; };
 		9A4F67AD2533DA31008F78A5 /* TradeParamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F67AC2533DA31008F78A5 /* TradeParamsView.swift */; };
+		9A4F67B025343543008F78A5 /* TradeGrainStatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F67AF25343543008F78A5 /* TradeGrainStatesView.swift */; };
+		9A4F67B4253436A3008F78A5 /* TradeGrainStatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */; };
 		9A553BC6252961E000C7C44E /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC5252961E000C7C44E /* extensions.swift */; };
 		9A553BC925296B9D00C7C44E /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC825296B9D00C7C44E /* protocols.swift */; };
 		9A56D0492521B7E200601B64 /* definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0482521B7E200601B64 /* definitions.swift */; };
@@ -36,6 +38,8 @@
 		9A45AD4C252ABAB00062D5D6 /* GridSearchFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchFirstViewModel.swift; sourceTree = "<group>"; };
 		9A4F67A92533DA0F008F78A5 /* TradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeView.swift; sourceTree = "<group>"; };
 		9A4F67AC2533DA31008F78A5 /* TradeParamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeParamsView.swift; sourceTree = "<group>"; };
+		9A4F67AF25343543008F78A5 /* TradeGrainStatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeGrainStatesView.swift; sourceTree = "<group>"; };
+		9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeGrainStatesViewModel.swift; sourceTree = "<group>"; };
 		9A553BC5252961E000C7C44E /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		9A553BC825296B9D00C7C44E /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		9A56D0482521B7E200601B64 /* definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = definitions.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				9A45AD49252AB6B20062D5D6 /* GridSearchFirstView.swift */,
 				9A4F67A92533DA0F008F78A5 /* TradeView.swift */,
 				9A4F67AC2533DA31008F78A5 /* TradeParamsView.swift */,
+				9A4F67AF25343543008F78A5 /* TradeGrainStatesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 				9A553BC5252961E000C7C44E /* extensions.swift */,
 				9A553BC825296B9D00C7C44E /* protocols.swift */,
 				9A45AD4C252ABAB00062D5D6 /* GridSearchFirstViewModel.swift */,
+				9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,8 +219,10 @@
 				9A6B74232519B92100090BAE /* ContentView.swift in Sources */,
 				9A45AD47252AAE3B0062D5D6 /* MainView.swift in Sources */,
 				9A56D0532521C39F00601B64 /* testData.swift in Sources */,
+				9A4F67B4253436A3008F78A5 /* TradeGrainStatesViewModel.swift in Sources */,
 				9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */,
 				9ABF7AA425295D1E00C95A30 /* TradeSummaryView.swift in Sources */,
+				9A4F67B025343543008F78A5 /* TradeGrainStatesView.swift in Sources */,
 				9A45AD4A252AB6B20062D5D6 /* GridSearchFirstView.swift in Sources */,
 				9A4F67AA2533DA0F008F78A5 /* TradeView.swift in Sources */,
 				9A8A6CE725219FFF0079B7FC /* GridSearchSelectView.swift in Sources */,

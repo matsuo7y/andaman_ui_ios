@@ -14,7 +14,7 @@ protocol API {
     
     func approveTradeGrains(grains: [ApprovedTradeGrain]) throws -> SuccessResponse
     
-    func tradeGrainStatues(timezone: Timezone, period: Period) throws -> TradeGrainStatusesResponse
+    func tradeGrainStatues(timezone: Timezone, period: Period) throws -> TradeGrainStatesResponse
     
     func tradeGrainParam(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) throws -> TradeGrainParamsResponse
     

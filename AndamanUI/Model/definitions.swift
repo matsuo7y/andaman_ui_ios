@@ -83,7 +83,7 @@ struct GridSearchGrainFirst {
 }
 
 // Definitions for Trade
-struct TradeGrainStatus: Hashable {
+struct TradeGrainState: Hashable {
     let key: TradeGrainKey
     let open: TradeCount
     let closed: TradeCount
@@ -120,10 +120,10 @@ struct GridSearchGrainFirstsResponse {
 }
 
 // Response for Trade
-struct TradeGrainStatusesResponse {
+struct TradeGrainStatesResponse {
     let unrealizedProfit: Float
     let realizedProfit: Float
-    let statuses: [TradeGrainStatus]
+    let states: [TradeGrainState]
 }
 
 struct TradeGrainParamsResponse {

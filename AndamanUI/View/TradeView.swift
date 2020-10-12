@@ -22,7 +22,7 @@ struct TradeView: View {
                     ForEach(Period.allCases, id: \.self) { Text($0.display) }
                 }
                 
-                NavigationLink(destination: Text("hello")) {
+                NavigationLink(destination: TradeGrainStatesView(timezone: timezoneSelected, period: periodSelected)) {
                     Text("Select")
                 }
             }
