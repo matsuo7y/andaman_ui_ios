@@ -33,13 +33,24 @@ struct TradeGrainStatesView: View {
         ScrollView {
             ForEach(self.model.resp!.states, id: \.self) { state in
                 HStack {
-                    LazyVGrid(columns: GridItem.flexible1, alignment: .leading, spacing: 5) {
-                        Text(state.key.tradePair.display).fontWeight(.bold)
-                        Text(state.key.timezone.display)
-                        Text(state.key.tradeDirection.display)
-                        Text(state.key.tradeAlgorithm.display)
+                    NavigationLink(
+                        destination:
+                            TradeParamsView(
+                                tradePair: state.key.tradePair,
+                                timezone: state.key.timezone,
+                                direction: state.key.tradeDirection,
+                                algorithm: state.key.tradeAlgorithm
+                            )
+                    ) {
+                        LazyVGrid(columns: GridItem.flexible1, alignment: .leading, spacing: 5) {
+                            Text(state.key.tradePair.display).fontWeight(.bold)
+                            Text(state.key.timezone.display)
+                            Text(state.key.tradeDirection.display)
+                            Text(state.key.tradeAlgorithm.display)
+                        }
+                        .frame(width: 100, alignment: .leading)
+                        .foregroundColor(.black)
                     }
-                    .frame(width: 100, alignment: .leading)
                     
                     Divider()
                     

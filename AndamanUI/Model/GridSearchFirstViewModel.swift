@@ -10,7 +10,7 @@ import Combine
 import Promises
 
 class GridSearchFirstViewModel: ObservableObject {
-    private let api = TestAPIClient.shared
+    private let api = APIInstance
     
     @Published var firstsDict: [GridSearchGrainKey: GridSearchGrainFirstValue]?
     

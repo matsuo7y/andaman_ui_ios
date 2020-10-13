@@ -32,6 +32,7 @@
 		9ABF7AA425295D1E00C95A30 /* TradeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABF7AA325295D1E00C95A30 /* TradeSummaryView.swift */; };
 		9AF4FD3A2522BFB2009C65EB /* GridSearchGrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */; };
 		9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF4FD402523137E009C65EB /* GridSearchGrainViewModel.swift */; };
+		9AF54AF42535864C00F1E2A8 /* TradeParamsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF54AF32535864C00F1E2A8 /* TradeParamsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		9ABF7AA325295D1E00C95A30 /* TradeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeSummaryView.swift; sourceTree = "<group>"; };
 		9AF4FD392522BFB2009C65EB /* GridSearchGrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchGrainView.swift; sourceTree = "<group>"; };
 		9AF4FD402523137E009C65EB /* GridSearchGrainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSearchGrainViewModel.swift; sourceTree = "<group>"; };
+		9AF54AF32535864C00F1E2A8 /* TradeParamsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeParamsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				9A45AD4C252ABAB00062D5D6 /* GridSearchFirstViewModel.swift */,
 				9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */,
 				9A59A1EE25354CD500C85AF4 /* TradeStatesViewModel.swift */,
+				9AF54AF32535864C00F1E2A8 /* TradeParamsViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */,
 				9ABF7AA425295D1E00C95A30 /* TradeSummaryView.swift in Sources */,
 				9A4F67B025343543008F78A5 /* TradeGrainStatesView.swift in Sources */,
+				9AF54AF42535864C00F1E2A8 /* TradeParamsViewModel.swift in Sources */,
 				9A45AD4A252AB6B20062D5D6 /* GridSearchFirstView.swift in Sources */,
 				9A4F67AA2533DA0F008F78A5 /* TradeView.swift in Sources */,
 				9A8A6CE725219FFF0079B7FC /* GridSearchSelectView.swift in Sources */,

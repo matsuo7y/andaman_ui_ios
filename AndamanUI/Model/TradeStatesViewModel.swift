@@ -10,7 +10,7 @@ import Combine
 import Promises
 
 class TradeStatesViewModel: ObservableObject {
-    private let api = TestAPIClient.shared
+    private let api = APIInstance
     private var timer: Timer?
     
     private let period: Period

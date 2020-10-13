@@ -30,3 +30,5 @@ struct APIError: Error, Identifiable {
     let statusCode: Int
     let message: String
 }
+
+let APIInstance = TestAPIClient.shared
