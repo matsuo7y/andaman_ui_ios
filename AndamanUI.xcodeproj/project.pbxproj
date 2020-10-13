@@ -21,6 +21,8 @@
 		9A56D0532521C39F00601B64 /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0522521C39F00601B64 /* testData.swift */; };
 		9A56D0592521EA0300601B64 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0582521EA0300601B64 /* API.swift */; };
 		9A56D05D2521EC8100601B64 /* TestAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D05C2521EC8100601B64 /* TestAPIClient.swift */; };
+		9A59A1EC25354CAB00C85AF4 /* TradeStatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59A1EB25354CAB00C85AF4 /* TradeStatesView.swift */; };
+		9A59A1EF25354CD500C85AF4 /* TradeStatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59A1EE25354CD500C85AF4 /* TradeStatesViewModel.swift */; };
 		9A6B74212519B92100090BAE /* AndamanUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B74202519B92100090BAE /* AndamanUIApp.swift */; };
 		9A6B74232519B92100090BAE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B74222519B92100090BAE /* ContentView.swift */; };
 		9A6B74252519B92200090BAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B74242519B92200090BAE /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 		9A56D0522521C39F00601B64 /* testData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
 		9A56D0582521EA0300601B64 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9A56D05C2521EC8100601B64 /* TestAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPIClient.swift; sourceTree = "<group>"; };
+		9A59A1EB25354CAB00C85AF4 /* TradeStatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeStatesView.swift; sourceTree = "<group>"; };
+		9A59A1EE25354CD500C85AF4 /* TradeStatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeStatesViewModel.swift; sourceTree = "<group>"; };
 		9A6B741D2519B92100090BAE /* AndamanUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AndamanUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A6B74202519B92100090BAE /* AndamanUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndamanUIApp.swift; sourceTree = "<group>"; };
 		9A6B74222519B92100090BAE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				9A4F67A92533DA0F008F78A5 /* TradeView.swift */,
 				9A4F67AC2533DA31008F78A5 /* TradeParamsView.swift */,
 				9A4F67AF25343543008F78A5 /* TradeGrainStatesView.swift */,
+				9A59A1EB25354CAB00C85AF4 /* TradeStatesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 				9A553BC825296B9D00C7C44E /* protocols.swift */,
 				9A45AD4C252ABAB00062D5D6 /* GridSearchFirstViewModel.swift */,
 				9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */,
+				9A59A1EE25354CD500C85AF4 /* TradeStatesViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -227,6 +233,7 @@
 				9A4F67AA2533DA0F008F78A5 /* TradeView.swift in Sources */,
 				9A8A6CE725219FFF0079B7FC /* GridSearchSelectView.swift in Sources */,
 				9AF4FD3A2522BFB2009C65EB /* GridSearchGrainView.swift in Sources */,
+				9A59A1EC25354CAB00C85AF4 /* TradeStatesView.swift in Sources */,
 				9A56D0492521B7E200601B64 /* definitions.swift in Sources */,
 				9A45AD4D252ABAB00062D5D6 /* GridSearchFirstViewModel.swift in Sources */,
 				9A8A6CEC2521A1FD0079B7FC /* enums.swift in Sources */,
@@ -234,6 +241,7 @@
 				9A6B74212519B92100090BAE /* AndamanUIApp.swift in Sources */,
 				9A56D0592521EA0300601B64 /* API.swift in Sources */,
 				9A56D05D2521EC8100601B64 /* TestAPIClient.swift in Sources */,
+				9A59A1EF25354CD500C85AF4 /* TradeStatesViewModel.swift in Sources */,
 				9A553BC6252961E000C7C44E /* extensions.swift in Sources */,
 				9A4F67AD2533DA31008F78A5 /* TradeParamsView.swift in Sources */,
 			);

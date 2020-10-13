@@ -1,20 +1,24 @@
 //
-//  TradeGrainStatesView.swift
+//  TradeStatesView.swift
 //  AndamanUI
 //
-//  Created by Yuki Matsuo on 2020/10/12.
+//  Created by Yuki Matsuo on 2020/10/13.
 //
 
 import SwiftUI
 import Combine
 
-struct TradeGrainStatesView: View {
-    @ObservedObject var model: TradeGrainStatesViewModel
-    
+struct TradeStatesView: View {
+    @ObservedObject var model: TradeStatesViewModel
     @State var alertView: Alert?
     
-    init(tradePair: TradePair, timezone: Timezone, period: Period) {
-        self.model = TradeGrainStatesViewModel(tradePair: tradePair, timezone: timezone, period: period, interval: 4.0)
+    let timezone: Timezone
+    let period: Period
+    
+    init(timezone: Timezone, period: Period) {
+        self.timezone = timezone
+        self.period = period
+        self.model = TradeStatesViewModel(period: period, interval: 4.0)
     }
     
     var headerView: some View {
@@ -33,13 +37,12 @@ struct TradeGrainStatesView: View {
         ScrollView {
             ForEach(self.model.resp!.states, id: \.self) { state in
                 HStack {
-                    LazyVGrid(columns: GridItem.flexible1, alignment: .leading, spacing: 5) {
-                        Text(state.key.tradePair.display).fontWeight(.bold)
-                        Text(state.key.timezone.display)
-                        Text(state.key.tradeDirection.display)
-                        Text(state.key.tradeAlgorithm.display)
+                    NavigationLink(destination: TradeGrainStatesView(tradePair: state.tradePair, timezone: self.timezone, period: self.period)) {
+                        Text(state.tradePair.display)
+                            .foregroundColor(.black)
+                            .fontWeight(.bold)
+                            .frame(width: 100, alignment: .leading)
                     }
-                    .frame(width: 100, alignment: .leading)
                     
                     Divider()
                     
@@ -108,3 +111,4 @@ struct TradeGrainStatesView: View {
             .alert(item: self.$alertView) { $0 }
     }
 }
+

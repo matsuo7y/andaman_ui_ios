@@ -69,7 +69,7 @@ class TestAPIClient: API {
     
     private var pollCount = 0
     
-    func tradeGrainStatues(timezone: Timezone, period: Period) throws -> TradeGrainStatesResponse {
+    func tradeStates(period: Period) throws -> TradeStatesResponse {
         sleep(1)
         
         pollCount += 1
@@ -78,30 +78,53 @@ class TestAPIClient: API {
         let count1 = pollCount % count
         let count2 = (pollCount + 4) % count
         
-        var statuses: [TradeGrainState] = []
+        var states: [TradeState] = []
         
         var i = 0
-        for pair in TradePair.allCases {
-            for timezone in Timezone.allCases {
-                for direction in TradeDirection.allCases {
-                    for algorithm in TradeAlgorithm.allCases {
-                        let key = TradeGrainKey(tradePair: pair, timezone: timezone, tradeDirection: direction, tradeAlgorithm: algorithm)
-                        
-                        statuses.append(
-                            TradeGrainState(
-                                key: key,
-                                open: testTradeCounts[(count1 + i) % count],
-                                closed: testTradeCounts[(count2 + i) % count]
-                            )
-                        )
-                        
-                        i += 1
-                    }
-                }
+        for tradePair in TradePair.allCases {
+            states.append(
+                TradeState(
+                    tradePair: tradePair,
+                    open: testTradeCounts[(count1 + i) % count],
+                    closed: testTradeCounts[(count2 + i) % count]
+                )
+            )
+            
+            i += 1
+        }
+        
+        return TradeStatesResponse(unrealizedProfit: testProfits[count1], realizedProfit: testProfits[count2], states: states)
+    }
+    
+    func tradeGrainStates(pair: TradePair, timezone: Timezone, period: Period) throws -> TradeGrainStatesResponse {
+        sleep(1)
+        
+        pollCount += 1
+        
+        let count = testTradeCounts.count
+        let count1 = pollCount % count
+        let count2 = (pollCount + 4) % count
+        
+        var states: [TradeGrainState] = []
+        
+        var i = 0
+        for direction in TradeDirection.allCases {
+            for algorithm in TradeAlgorithm.allCases {
+                let key = TradeGrainKey(tradePair: pair, timezone: timezone, tradeDirection: direction, tradeAlgorithm: algorithm)
+                
+                states.append(
+                    TradeGrainState(
+                        key: key,
+                        open: testTradeCounts[(count1 + i) % count],
+                        closed: testTradeCounts[(count2 + i) % count]
+                    )
+                )
+                
+                i += 1
             }
         }
         
-        return TradeGrainStatesResponse(unrealizedProfit: testProfits[count1], realizedProfit: testProfits[count2], states: statuses)
+        return TradeGrainStatesResponse(unrealizedProfit: testProfits[count1], realizedProfit: testProfits[count2], states: states)
     }
     
     func tradeGrainParam(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) throws -> TradeGrainParamsResponse {

@@ -1,28 +1,24 @@
 //
-//  TradeGrainStatesViewModel.swift
+//  TradeStatesViewModel.swift
 //  AndamanUI
 //
-//  Created by Yuki Matsuo on 2020/10/12.
+//  Created by Yuki Matsuo on 2020/10/13.
 //
 
 import Foundation
 import Combine
 import Promises
 
-class TradeGrainStatesViewModel: ObservableObject {
+class TradeStatesViewModel: ObservableObject {
     private let api = TestAPIClient.shared
     private var timer: Timer?
     
-    private let tradePair: TradePair
-    private let timezone: Timezone
     private let period: Period
     private let interval: Double
     
-    @Published var resp: TradeGrainStatesResponse?
+    @Published var resp: TradeStatesResponse?
     
-    init(tradePair: TradePair, timezone: Timezone, period: Period, interval: Double) {
-        self.tradePair = tradePair
-        self.timezone = timezone
+    init(period: Period, interval: Double) {
         self.period = period
         self.interval = interval
     }
@@ -38,9 +34,9 @@ class TradeGrainStatesViewModel: ObservableObject {
     }
     
     func fetch(_ errorHandler: @escaping (Error) -> ()) {
-        Promise<TradeGrainStatesResponse>(on: .global()) { fulfill, reject in
+        Promise<TradeStatesResponse>(on: .global()) { fulfill, reject in
             do {
-                fulfill(try self.api.tradeGrainStates(pair: self.tradePair, timezone: self.timezone, period: self.period))
+                fulfill(try self.api.tradeStates(period: self.period))
             } catch(let error) {
                 reject(error)
             }

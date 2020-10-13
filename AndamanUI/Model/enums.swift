@@ -14,6 +14,7 @@ enum TradePair: Int, CaseIterable, Displayable {
     case EurUsd
     case EurJPY
     case EurAud
+    case EurGbp
     case UsdJpy
     case AudUsd
     case AudJpy
@@ -32,6 +33,8 @@ enum TradePair: Int, CaseIterable, Displayable {
             return "EUR/JPY"
         case .EurAud:
             return "EUR/AUD"
+        case .EurGbp:
+            return "EUR/GBP"
         case .UsdJpy:
             return "USD/JPY"
         case .AudUsd:

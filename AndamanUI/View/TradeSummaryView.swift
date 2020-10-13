@@ -25,9 +25,20 @@ struct TradeSummaryView: View, Identifiable {
         .padding()
     }
     
+    var paramsView: some View {
+        LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
+            let tradeParams = self.tradeSummary.tradeParams as! TradeParams
+            ForEach(tradeParams.params) { param in
+                Text(param.key).foregroundColor(.red)
+                Text(param.value)
+            }
+        }
+        .padding()
+    }
+    
     var body: some View {
         headerView
         Divider()
-        TradeParamsView(tradeParams: tradeSummary.tradeParams as! TradeParams)
+        paramsView
     }
 }
