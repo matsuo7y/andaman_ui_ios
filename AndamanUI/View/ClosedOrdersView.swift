@@ -12,6 +12,8 @@ struct ClosedOrdersView: View {
     @ObservedObject var model: ClosedOrdersViewModel
     @State var alertView: Alert?
     
+    private let countPerPage = 10
+    
     init(tradePair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) {
         self.model = ClosedOrdersViewModel(tradePair: tradePair, timezone: timezone, direction: direction, algorithm: algorithm)
     }
@@ -26,7 +28,7 @@ struct ClosedOrdersView: View {
     }
     
     var ordersView: some View {
-        ScrollView {
+        List {
             ForEach(self.model.resp!.orders, id: \.self) { order in
                 HStack {
                     LazyVGrid(columns: GridItem.flexible1, alignment: .leading, spacing: 5) {
@@ -35,7 +37,7 @@ struct ClosedOrdersView: View {
                         Text("units \(order.units.display)")
                         Text("profit \(order.profit.display)").foregroundColor(.red)
                     }
-                    .frame(width: 120, alignment: .leading)
+                    .frame(width: 110, alignment: .leading)
                     .foregroundColor(.black)
                     
                     Divider()
@@ -66,10 +68,39 @@ struct ClosedOrdersView: View {
                     .frame(width: 120, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 12)
-                
-                Divider()
             }
+        }
+    }
+    
+    private func currentPage() -> Int {
+        guard let paging = self.model.resp?.paging else { return 0 }
+        return Int(Float(paging.offset) / Float(countPerPage))
+    }
+    
+    private func numPages() -> Int {
+        guard let paging = self.model.resp?.paging else { return 0 }
+        return Int(ceil(Float(paging.all) / Float(countPerPage)))
+    }
+    
+    var pagerView: some View {
+        HStack {
+            let paging = self.model.resp!.paging
+            
+            Text("0").font(.headline)
+            Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: 0) }) {
+                Text("<").fontWeight(.bold).font(.title)
+            }
+            Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: currentPage() > 0 ? paging.offset - countPerPage : paging.offset) }) {
+                Text("<").font(.title)
+            }
+            Text(paging.offset.display).font(.headline)
+            Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: currentPage() < numPages() - 1 ? paging.offset + countPerPage : paging.offset) }) {
+                Text(">").font(.title)
+            }
+            Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: numPages() > 0 ? (numPages() - 1) * countPerPage : 0) }) {
+                Text(">").fontWeight(.bold).font(.title)
+            }
+            Text(paging.all.display).font(.headline)
         }
     }
     
@@ -78,6 +109,8 @@ struct ClosedOrdersView: View {
             headerView
             Divider()
             ordersView
+            Divider()
+            pagerView
         }
     }
     
@@ -102,7 +135,7 @@ struct ClosedOrdersView: View {
     
     var body: some View {
         contentView
-            .onAppear { self.model.fetch(errorHandler) }
+            .onAppear { self.model.fetch(errorHandler, count: countPerPage, offset: 0) }
             .alert(item: self.$alertView) { $0 }
     }
 }

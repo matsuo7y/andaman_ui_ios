@@ -137,4 +137,8 @@ var testOpenOrders = [
     Order(tradePair: TradePair.GbpUsd, units: 10000.0, timeAtOpen: 1609445384, priceAtOpen: 1.3367, timeAtClose: nil, priceAtClose: nil, profit: 8.2),
 ]
 
-var testClosedOrder = Order(tradePair: TradePair.UsdJpy, units: 1000.0, timeAtOpen: 1602484464, priceAtOpen: 105.356, timeAtClose: 1602486772, priceAtClose: 105.783, profit: 23.5)
+func testClosedOrder(index: Int) -> Order {
+    return Order(
+        tradePair: TradePair.UsdJpy, units: 1000.0, timeAtOpen: 1602484464, priceAtOpen: Float(index), timeAtClose: 1602486772, priceAtClose: 105.783, profit: 23.5
+    )
+}

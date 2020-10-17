@@ -161,7 +161,7 @@ class TestAPIClient: API {
         
         let all = 120
         let _count = all - offset > count ? count : all - offset
-        let orders = Array(repeating: testClosedOrder, count: _count)
+        let orders = (0..<_count).map { testClosedOrder(index: $0 + offset + 1) }
         
         return ClosedOrdersResponse(orders: orders, paging: OffsetPafing(all: all, count: _count, offset: offset), realizedProfit: testProfits[pollCount % testProfits.count])
     }
