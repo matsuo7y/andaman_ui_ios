@@ -76,14 +76,25 @@ struct TradeGrainStatesView: View {
                     
                     Divider()
                     
-                    VStack {
-                        Text("closed").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
-                        Spacer()
-                        Text("profit \(state.closed.profit.display)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.red)
-                        Spacer()
-                        Text("count \(state.closed.count.display)").frame(maxWidth: .infinity, alignment: .leading)
+                    NavigationLink(
+                        destination:
+                            ClosedOrdersView(
+                                tradePair: state.key.tradePair,
+                                timezone: state.key.timezone,
+                                direction: state.key.tradeDirection,
+                                algorithm: state.key.tradeAlgorithm
+                            )
+                    ) {
+                        VStack {
+                            Text("closed").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
+                            Spacer()
+                            Text("profit \(state.closed.profit.display)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.red)
+                            Spacer()
+                            Text("count \(state.closed.count.display)").frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .frame(width: 120, alignment: .leading)
+                        .foregroundColor(.black)
                     }
-                    .frame(width: 120, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 12)

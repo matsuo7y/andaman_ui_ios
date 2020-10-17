@@ -156,7 +156,7 @@ class TestAPIClient: API {
         return OpenOrdersResponse(orders: orders, unrealizedProfit: testProfits[pollCount % testProfits.count])
     }
     
-    func closedOrders(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm, count: Int=50, offset: Int=0) throws -> ClosedOrdersResponse {
+    func closedOrders(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm, count: Int=20, offset: Int=0) throws -> ClosedOrdersResponse {
         sleep(1)
         
         let all = 120

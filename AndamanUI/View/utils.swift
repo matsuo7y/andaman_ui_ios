@@ -11,7 +11,7 @@ func unixtime2DateString(_ unixtime: Int) -> (day: String, time: String) {
     let date = Date(timeIntervalSince1970: Double(unixtime) as TimeInterval)
     let formatter = DateFormatter()
     
-    formatter.dateFormat = "MM/dd"
+    formatter.dateFormat = "MMM dd"
     let day = formatter.string(from: date)
     
     formatter.dateFormat = "HH:mm:ss"
