@@ -87,19 +87,25 @@ struct ClosedOrdersView: View {
             let paging = self.model.resp!.paging
             
             Text("0").font(.headline)
+            
             Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: 0) }) {
                 Text("<").fontWeight(.bold).font(.title)
             }
+            
             Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: currentPage() > 0 ? paging.offset - countPerPage : paging.offset) }) {
                 Text("<").font(.title)
             }
+            
             Text(paging.offset.display).font(.headline)
+            
             Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: currentPage() < numPages() - 1 ? paging.offset + countPerPage : paging.offset) }) {
                 Text(">").font(.title)
             }
+            
             Button(action: { self.model.fetch(errorHandler, count: countPerPage, offset: numPages() > 0 ? (numPages() - 1) * countPerPage : 0) }) {
                 Text(">").fontWeight(.bold).font(.title)
             }
+            
             Text(paging.all.display).font(.headline)
         }
     }
