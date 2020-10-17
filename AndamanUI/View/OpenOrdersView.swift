@@ -1,68 +1,60 @@
 //
-//  TradeStatesView.swift
+//  OrderRowView.swift
 //  AndamanUI
 //
-//  Created by Yuki Matsuo on 2020/10/13.
+//  Created by Yuki Matsuo on 2020/10/17.
 //
 
 import SwiftUI
 import Combine
 
-struct TradeStatesView: View {
-    @ObservedObject var model: TradeStatesViewModel
+struct OpenOrdersView: View {
+    @ObservedObject var model: OpenOrdersViewModel
     @State var alertView: Alert?
     
-    let timezone: Timezone
-    let period: Period
-    
-    init(timezone: Timezone, period: Period) {
-        self.timezone = timezone
-        self.period = period
-        self.model = TradeStatesViewModel(period: period, interval: 4.0)
+    init(tradePair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm) {
+        self.model = OpenOrdersViewModel(tradePair: tradePair, timezone: timezone, direction: direction, algorithm: algorithm, interval: 4.0)
     }
     
     var headerView: some View {
         LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {
             Text("Unrealized Profit").foregroundColor(.blue)
             Text(self.model.resp!.unrealizedProfit.display())
-            
-            Text("Realized Profit").foregroundColor(.red)
-            Text(self.model.resp!.realizedProfit.display())
         }
         .padding(.leading, 12)
         .padding(.bottom, 5)
     }
     
-    var statesView: some View {
+    var ordersView: some View {
         ScrollView {
-            ForEach(self.model.resp!.states, id: \.self) { state in
+            ForEach(self.model.resp!.orders, id: \.self) { order in
                 HStack {
-                    NavigationLink(destination: TradeGrainStatesView(tradePair: state.tradePair, timezone: self.timezone, period: self.period)) {
-                        Text(state.tradePair.display)
-                            .foregroundColor(.black)
-                            .fontWeight(.bold)
-                            .frame(width: 100, alignment: .leading)
+                    LazyVGrid(columns: GridItem.flexible1, alignment: .leading, spacing: 5) {
+                        Text(order.tradePair.display).fontWeight(.bold)
+                        Text("units \(order.units.display)")
+                        Text("profit \(order.profit.display)").foregroundColor(.blue)
                     }
+                    .frame(width: 120, alignment: .leading)
+                    .foregroundColor(.black)
                     
                     Divider()
                     
                     VStack {
-                        Text("open").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
+                        let date = unixtime2DateString(order.timeAtOpen)
+                        Text("time at open").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
-                        Text("profit \(state.open.profit.display)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.blue)
+                        Text(date.day).frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
-                        Text("count \(state.open.count.display)").frame(maxWidth: .infinity, alignment: .leading)
+                        Text(date.time).frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .frame(width: 120, alignment: .leading)
                     
                     Divider()
                     
                     VStack {
-                        Text("closed").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
+                        Text("price at open").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
-                        Text("profit \(state.closed.profit.display)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.red)
-                        Spacer()
-                        Text("count \(state.closed.count.display)").frame(maxWidth: .infinity, alignment: .leading)
+                        Text(order.priceAtOpen.display()).frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .frame(width: 120, alignment: .leading)
                 }
@@ -78,7 +70,7 @@ struct TradeStatesView: View {
         VStack {
             headerView
             Divider()
-            statesView
+            ordersView
         }
     }
     
@@ -107,8 +99,9 @@ struct TradeStatesView: View {
                 self.model.fetch(errorHandler)
                 self.model.start(errorHandler)
             }
-            .onDisappear { self.model.end() }
+            .onDisappear {
+                self.model.end()
+            }
             .alert(item: self.$alertView) { $0 }
     }
 }
-

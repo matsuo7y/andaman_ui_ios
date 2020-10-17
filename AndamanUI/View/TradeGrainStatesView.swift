@@ -54,25 +54,36 @@ struct TradeGrainStatesView: View {
                     
                     Divider()
                     
-                    VStack {
-                        Text("open").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
-                        Spacer()
-                        Text(state.open.profit.display()).frame(maxWidth: .infinity, alignment: .leading)
-                        Spacer()
-                        Text(state.open.count.display).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.blue)
+                    NavigationLink(
+                        destination:
+                            OpenOrdersView(
+                                tradePair: state.key.tradePair,
+                                timezone: state.key.timezone,
+                                direction: state.key.tradeDirection,
+                                algorithm: state.key.tradeAlgorithm
+                            )
+                    ) {
+                        VStack {
+                            Text("open").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
+                            Spacer()
+                            Text("profit \(state.open.profit.display)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.blue)
+                            Spacer()
+                            Text("count \(state.open.count.display)").frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .frame(width: 120, alignment: .leading)
+                        .foregroundColor(.black)
                     }
-                    .frame(width: 100, alignment: .leading)
                     
                     Divider()
                     
                     VStack {
                         Text("closed").fontWeight(.bold).frame(maxWidth: .infinity, alignment: .leading)
                         Spacer()
-                        Text(state.closed.profit.display()).frame(maxWidth: .infinity, alignment: .leading)
+                        Text("profit \(state.closed.profit.display)").frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.red)
                         Spacer()
-                        Text(state.closed.count.display).frame(maxWidth: .infinity, alignment: .leading).foregroundColor(.red)
+                        Text("count \(state.closed.count.display)").frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .frame(width: 100, alignment: .leading)
+                    .frame(width: 120, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 12)

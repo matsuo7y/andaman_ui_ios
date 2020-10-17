@@ -15,6 +15,9 @@
 		9A4F67AD2533DA31008F78A5 /* TradeParamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F67AC2533DA31008F78A5 /* TradeParamsView.swift */; };
 		9A4F67B025343543008F78A5 /* TradeGrainStatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F67AF25343543008F78A5 /* TradeGrainStatesView.swift */; };
 		9A4F67B4253436A3008F78A5 /* TradeGrainStatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */; };
+		9A51189F253A74CF003CC9A2 /* OpenOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A51189E253A74CF003CC9A2 /* OpenOrdersView.swift */; };
+		9A5118A3253A7872003CC9A2 /* OpenOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5118A2253A7872003CC9A2 /* OpenOrdersViewModel.swift */; };
+		9A5118A6253A86C5003CC9A2 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5118A5253A86C5003CC9A2 /* utils.swift */; };
 		9A553BC6252961E000C7C44E /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC5252961E000C7C44E /* extensions.swift */; };
 		9A553BC925296B9D00C7C44E /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A553BC825296B9D00C7C44E /* protocols.swift */; };
 		9A56D0492521B7E200601B64 /* definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56D0482521B7E200601B64 /* definitions.swift */; };
@@ -43,6 +46,9 @@
 		9A4F67AC2533DA31008F78A5 /* TradeParamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeParamsView.swift; sourceTree = "<group>"; };
 		9A4F67AF25343543008F78A5 /* TradeGrainStatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeGrainStatesView.swift; sourceTree = "<group>"; };
 		9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeGrainStatesViewModel.swift; sourceTree = "<group>"; };
+		9A51189E253A74CF003CC9A2 /* OpenOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenOrdersView.swift; sourceTree = "<group>"; };
+		9A5118A2253A7872003CC9A2 /* OpenOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenOrdersViewModel.swift; sourceTree = "<group>"; };
+		9A5118A5253A86C5003CC9A2 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		9A553BC5252961E000C7C44E /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		9A553BC825296B9D00C7C44E /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		9A56D0482521B7E200601B64 /* definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = definitions.swift; sourceTree = "<group>"; };
@@ -127,6 +133,8 @@
 				9A4F67AC2533DA31008F78A5 /* TradeParamsView.swift */,
 				9A4F67AF25343543008F78A5 /* TradeGrainStatesView.swift */,
 				9A59A1EB25354CAB00C85AF4 /* TradeStatesView.swift */,
+				9A51189E253A74CF003CC9A2 /* OpenOrdersView.swift */,
+				9A5118A5253A86C5003CC9A2 /* utils.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -146,6 +154,7 @@
 				9A4F67B3253436A3008F78A5 /* TradeGrainStatesViewModel.swift */,
 				9A59A1EE25354CD500C85AF4 /* TradeStatesViewModel.swift */,
 				9AF54AF32535864C00F1E2A8 /* TradeParamsViewModel.swift */,
+				9A5118A2253A7872003CC9A2 /* OpenOrdersViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -231,17 +240,20 @@
 				9A4F67B4253436A3008F78A5 /* TradeGrainStatesViewModel.swift in Sources */,
 				9AF4FD412523137E009C65EB /* GridSearchGrainViewModel.swift in Sources */,
 				9ABF7AA425295D1E00C95A30 /* TradeSummaryView.swift in Sources */,
+				9A5118A3253A7872003CC9A2 /* OpenOrdersViewModel.swift in Sources */,
 				9A4F67B025343543008F78A5 /* TradeGrainStatesView.swift in Sources */,
 				9AF54AF42535864C00F1E2A8 /* TradeParamsViewModel.swift in Sources */,
 				9A45AD4A252AB6B20062D5D6 /* GridSearchFirstView.swift in Sources */,
 				9A4F67AA2533DA0F008F78A5 /* TradeView.swift in Sources */,
 				9A8A6CE725219FFF0079B7FC /* GridSearchSelectView.swift in Sources */,
 				9AF4FD3A2522BFB2009C65EB /* GridSearchGrainView.swift in Sources */,
+				9A51189F253A74CF003CC9A2 /* OpenOrdersView.swift in Sources */,
 				9A59A1EC25354CAB00C85AF4 /* TradeStatesView.swift in Sources */,
 				9A56D0492521B7E200601B64 /* definitions.swift in Sources */,
 				9A45AD4D252ABAB00062D5D6 /* GridSearchFirstViewModel.swift in Sources */,
 				9A8A6CEC2521A1FD0079B7FC /* enums.swift in Sources */,
 				9A553BC925296B9D00C7C44E /* protocols.swift in Sources */,
+				9A5118A6253A86C5003CC9A2 /* utils.swift in Sources */,
 				9A6B74212519B92100090BAE /* AndamanUIApp.swift in Sources */,
 				9A56D0592521EA0300601B64 /* API.swift in Sources */,
 				9A56D05D2521EC8100601B64 /* TestAPIClient.swift in Sources */,

@@ -145,11 +145,13 @@ struct TradeGrainParamsResponse {
 
 struct OpenOrdersResponse {
     let orders: [Order]
+    let unrealizedProfit: Float
 }
 
 struct ClosedOrdersResponse {
     let orders: [Order]
     let paging: OffsetPafing
+    let realizedProfit: Float
 }
 
 // Response for General

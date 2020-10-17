@@ -31,7 +31,7 @@ struct GridSearchFirstView: View {
                     let i = $0
                     let first = value.firsts[i]
                     let tradeSummary = first.tradeSummary
-                    let background = value.selected[i] ? Color.green.opacity(0.15) : Color.red.opacity(0.15)
+                    let background = value.selected[i] ? Color.green.opacity(0.15) : Color.blue.opacity(0.15)
                     
                     HStack {
                         LazyVGrid(columns: GridItem.flexible2, alignment: .leading, spacing: 5) {

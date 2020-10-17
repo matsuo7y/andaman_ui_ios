@@ -140,9 +140,20 @@ class TestAPIClient: API {
         sleep(1)
         
         pollCount += 1
-        let orders = (0..<5).map { testOpenOrders[ (pollCount + $0) % testOpenOrders.count ]}
+        let orders = (0..<5).map { (i: Int) -> (Order) in
+            let _order = testOpenOrders[ (pollCount + i) % testOpenOrders.count ]
+            return Order(
+                tradePair: pair,
+                units: _order.units,
+                timeAtOpen: _order.timeAtOpen,
+                priceAtOpen: _order.priceAtOpen,
+                timeAtClose: _order.timeAtClose,
+                priceAtClose: _order.priceAtClose,
+                profit: _order.profit
+            )
+        }
         
-        return OpenOrdersResponse(orders: orders)
+        return OpenOrdersResponse(orders: orders, unrealizedProfit: testProfits[pollCount % testProfits.count])
     }
     
     func closedOrders(pair: TradePair, timezone: Timezone, direction: TradeDirection, algorithm: TradeAlgorithm, count: Int=50, offset: Int=0) throws -> ClosedOrdersResponse {
@@ -152,6 +163,6 @@ class TestAPIClient: API {
         let _count = all - offset > count ? count : all - offset
         let orders = Array(repeating: testClosedOrder, count: _count)
         
-        return ClosedOrdersResponse(orders: orders, paging: OffsetPafing(all: all, count: _count, offset: offset))
+        return ClosedOrdersResponse(orders: orders, paging: OffsetPafing(all: all, count: _count, offset: offset), realizedProfit: testProfits[pollCount % testProfits.count])
     }
 }
