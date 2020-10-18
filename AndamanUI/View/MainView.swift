@@ -13,29 +13,19 @@ struct MainView: View {
     var body: some View {
         TabView(selection: $currentTab) {
             TradeView()
-                .tabItem {
-                    Text("Trade")
-                }
+                .tabItem { Text("Trade") }
                 .tag(0)
-                .onAppear {
-                    self.currentTab = 0
-                }
+                .onAppear { self.currentTab = 0 }
+            
             GridSearchSelectView()
-                .tabItem {
-                    Text("GS Select")
-                }
+                .tabItem { Text("GS Select") }
                 .tag(1)
-                .onAppear {
-                    self.currentTab = 1
-                }
+                .onAppear { self.currentTab = 1 }
+            
             GridSearchFirstView()
-                .tabItem {
-                    Text("GS First")
-                }
+                .tabItem { Text("GS First") }
                 .tag(2)
-                .onAppear {
-                    self.currentTab = 2
-                }
+                .onAppear { self.currentTab = 2 }
         }
     }
 }
